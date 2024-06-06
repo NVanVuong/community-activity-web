@@ -1,0 +1,33 @@
+export const MODAL = {
+    ADD: {
+        USER: "ADD_USER",
+        CLASS: "ADD_CLASS",
+        FACULTY: "ADD_FACULTY",
+        CATEGORY: "ADD_CATEGORY",
+        SUBCATEGORY: "ADD_SUBCATEGORY",
+        ACTIVITY: "ADD_ACTIVITY",
+        PROOF: "ADD_PROOF"
+    },
+    UPDATE: {
+        USER: "UPDATE_USER",
+        CATEGORY: "UPDATE_CATEGORY",
+        SUBCATEGORY: "UPDATE_SUBCATEGORY",
+        PASSWORD: "UPDATE_PASSWORD",
+        ACTIVITY: "UPDATE_ACTIVITY"
+    },
+    DELETE: {
+        USER: "DELETE_USER",
+        CLASS: "DELETE_CLASS",
+        FACULTY: "DELETE_FACULTY",
+        CATEGORY: "DELETE_CATEGORY",
+        SUBCATEGORY: "DELETE_SUBCATEGORY",
+        ACTIVITY: "DELETE_ACTIVITY"
+    },
+    VIEW: {
+        USER: "VIEW_USER",
+        CLASS: "VIEW_CLASS",
+        FACULTY: "VIEW_FACULTY",
+        CATEGORY: "VIEW_CATEGORY",
+        ACTIVITY: "VIEW_ACTIVITY"
+    }
+} as const
