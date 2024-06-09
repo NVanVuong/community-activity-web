@@ -23,7 +23,6 @@ const UserMenu = () => {
         switch (key) {
             case "profile":
                 navigate(SITE_MAP.MY_PROFILE)
-
                 break
             case "admin":
                 navigate(SITE_MAP.ADMIN)

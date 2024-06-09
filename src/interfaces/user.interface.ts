@@ -25,14 +25,34 @@ export interface IUserJwt {
     role: ROLE
 }
 
-export interface IUserQuery extends IBaseQuery {}
+export interface IUserQuery extends IBaseQuery {
+    classId: string
+    facultyId: string
+    yearId: string
+    limit: number
+    page: number
+}
 
 export interface IUserByClassQuery {
     classId: string
 }
 
+export interface ICreateUserRequest {
+    role: ROLE
+    name: string
+    studentId?: string
+    clazzId?: string
+    facultyId?: string
+    score?: number
+}
+
 export interface IUsersResponse extends IBaseRespone {
-    data: IUser[]
+    data: {
+        users: IUser[]
+        total: number
+        page: number
+        limit: number
+    }
 }
 
 export interface IMyInfoRespone extends IBaseRespone {

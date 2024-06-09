@@ -34,7 +34,7 @@ export const activityApi = creatApiUserWithAuth.injectEndpoints({
                     body
                 }
             },
-            invalidatesTags: ["categories"]
+            invalidatesTags: ["activities"]
         }),
         deleteActivity: builder.mutation<IActivityResponse, IActivityId>({
             query(id) {
@@ -51,7 +51,8 @@ export const activityApi = creatApiUserWithAuth.injectEndpoints({
                     url: `/activities/${id}/register`,
                     method: "POST"
                 }
-            }
+            },
+            invalidatesTags: ["activities"]
         }),
         cancelActivity: builder.mutation<IActivityResponse, IActivityId>({
             query(id) {
@@ -59,7 +60,8 @@ export const activityApi = creatApiUserWithAuth.injectEndpoints({
                     url: `/activities/${id}/cancel`,
                     method: "POST"
                 }
-            }
+            },
+            invalidatesTags: ["activities"]
         })
     })
 })

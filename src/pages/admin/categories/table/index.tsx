@@ -2,34 +2,35 @@ import { ColumnsType } from "antd/es/table"
 import { AlignType } from "rc-table/lib/interface"
 import { FaEllipsis } from "react-icons/fa6"
 import { Dropdown, Space, Spin } from "antd"
-import { useMenuActions } from "./hooks/useMenuActions"
 import Table from "@/components/organisms/table"
 import { useAppSelector } from "@/redux/hook"
 import { IFaculty } from "@/interfaces/faculty.interface"
-import { useGetFacultiesQuery } from "@/redux/services/faculties/faculties.service"
+import { useGetCategoriesQuery } from "@/redux/services/categories/categories.slice"
+import { ICategory } from "@/interfaces/categories.interface"
+import { useMenuActions } from "../hooks/useMenuActions"
 
-const TableManageFaculties = () => {
+const TableManageCategories = () => {
     const keyword = useAppSelector((state) => state.search.keyword)
-    const { data, isLoading } = useGetFacultiesQuery({ keyword: keyword })
+    const { data, isLoading } = useGetCategoriesQuery({ keyword: keyword })
 
-    const faculties = data?.data as IFaculty[]
+    const categories = data?.data as ICategory[]
 
     const getMenuActions = useMenuActions()
 
-    const columns: ColumnsType<IFaculty> = [
+    const columns: ColumnsType<ICategory> = [
         {
             title: <span className=" font-bold">Index</span>,
             align: "center" as AlignType,
-            key: "id",
+            key: "inex",
+            dataIndex: "index",
             width: "10%",
-            render: (_, __, index) => <span className=" text-sm font-semibold">{index + 1}</span>
+            render: (index: number) => <span className=" text-sm font-semibold">{index}</span>
         },
         {
             title: <span className="font-bold">Name</span>,
             key: "name",
             dataIndex: "name",
             width: "80%",
-            sorter: (a, b) => a.name?.localeCompare(b.name),
             render: (name: string) => <span className="text-sm font-medium">{name}</span>
         },
         {
@@ -53,9 +54,9 @@ const TableManageFaculties = () => {
 
     return (
         <Spin spinning={isLoading}>
-            <Table pageSize={9} dataSource={faculties} columns={columns} rowKey={(record) => record.id} />
+            <Table pageSize={9} dataSource={categories} columns={columns} rowKey={(record) => record.id} />
         </Spin>
     )
 }
 
-export default TableManageFaculties
+export default TableManageCategories

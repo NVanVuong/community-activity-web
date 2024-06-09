@@ -3,39 +3,39 @@ import { ColumnsType } from "antd/es/table"
 import { AlignType } from "rc-table/lib/interface"
 import { FaEllipsis } from "react-icons/fa6"
 import { Dropdown, Space, Spin } from "antd"
-import { useMenuActions } from "./hooks/useMenuActions"
 import { useGetUsersQuery } from "@/redux/services/users/users.service"
 import Table from "@/components/organisms/table"
 import { ROLE, ROLE_COLORS, RoleType } from "@/utils/enums/role.enum"
 import { IClazz } from "@/interfaces/clazz.interface"
 import { useAppSelector } from "@/redux/hook"
-import { useEffect, useState } from "react"
-
-interface FilterOption {
-    text: string
-    value: string
-}
+import { useState } from "react"
+import { useMenuActions } from "../hooks/useMenuActions"
+import { AvatarDefault } from "@/assets/images"
+import StudentDetail from "@/components/organisms/drawer/student"
 
 const TableManageUsers = () => {
     const keyword = useAppSelector((state) => state.search.keyword)
-    const { data, isLoading } = useGetUsersQuery({ keyword: keyword })
+    const classId = useAppSelector((state) => state.search.classId)
+    const facultyId = useAppSelector((state) => state.search.facultyId)
+    const yearId = useAppSelector((state) => state.search.yearId)
 
-    const users = data?.data as IUser[]
+    const [page, setPage] = useState(1)
+    const [limit, setLimit] = useState(10)
 
-    const [classFilters, setClassFilters] = useState<FilterOption[]>([])
-    const [facultyFilters, setFacultyFilters] = useState<FilterOption[]>([])
+    const [isOpenUserInfor, setIsOpenUserInfor] = useState(false)
+    const [userSelected, setUserSelected] = useState<IUser>({} as IUser)
 
-    const getMenuActions = useMenuActions()
+    const { data, isLoading } = useGetUsersQuery({ keyword, classId, facultyId, yearId, page, limit })
 
-    useEffect(() => {
-        if (users) {
-            const classes = [...new Set(users.map((user) => user.clazz.name))]
-            setClassFilters(classes.map((clazz) => ({ text: clazz, value: clazz })))
+    const users = data?.data.users as IUser[]
+    const totalRecords = data?.data.total || 0
 
-            const faculties = [...new Set(users.map((user) => user.clazz.faculty.name))]
-            setFacultyFilters(faculties.map((faculty) => ({ text: faculty, value: faculty })))
-        }
-    }, [users])
+    const handlePageChange = (page: number, pageSize: number) => {
+        setPage(page)
+        setLimit(pageSize)
+    }
+
+    const getMenuActions = useMenuActions(setIsOpenUserInfor, setUserSelected)
 
     const columns: ColumnsType<IUser> = [
         {
@@ -47,12 +47,16 @@ const TableManageUsers = () => {
         },
         {
             title: <span className="font-bold">Name</span>,
-            key: "firstName",
+            key: "name",
             width: "18%",
             sorter: (a, b) => a.name?.localeCompare(b.name),
             render: (record: IUser) => (
                 <div className="flex items-center">
-                    <img className="h-8 w-8 rounded-full" src={record.avatar} alt={record.name} />
+                    <img
+                        className="h-8 w-8 rounded-full"
+                        src={record.avatar ? record.avatar : AvatarDefault}
+                        alt={record.name}
+                    />
                     <span className="ml-2 text-sm font-semibold">{record.name}</span>
                 </div>
             )
@@ -62,7 +66,7 @@ const TableManageUsers = () => {
             title: <span className="font-bold">StudentID</span>,
             dataIndex: "studentId",
             key: "studentId",
-            width: "18%",
+            width: "10%",
             sorter: (a, b) => a.studentId?.localeCompare(b.studentId),
             render: (studentId: string) => <span className="text-sm font-medium">{studentId}</span>
         },
@@ -70,19 +74,25 @@ const TableManageUsers = () => {
             title: <span className="font-bold">Class</span>,
             key: "clazz",
             dataIndex: "clazz",
-            width: "15%",
-            filters: classFilters,
-            onFilter: (value, record) => record.clazz.name === value,
-            render: (clazz: IClazz) => <span className="text-sm font-medium">{clazz.name}</span>
+            width: "10%",
+            sorter: (a, b) => a.clazz?.name?.localeCompare(b.clazz?.name),
+            render: (clazz: IClazz) => <span className="text-sm font-medium">{clazz?.name}</span>
         },
         {
             title: <span className="font-bold">Faculty</span>,
             key: "faculty",
             dataIndex: "clazz",
             width: "15%",
-            filters: facultyFilters,
-            onFilter: (value, record) => record.clazz.faculty.name === value,
-            render: (clazz: IClazz) => <span className="text-sm font-medium">{clazz.faculty.name}</span>
+            sorter: (a, b) => a.clazz?.faculty.name?.localeCompare(b.clazz?.faculty.name),
+            render: (clazz: IClazz) => <span className="text-sm font-medium">{clazz?.faculty.name}</span>
+        },
+        {
+            title: <span className="font-bold">Year</span>,
+            key: "academicYear",
+            dataIndex: "clazz",
+            width: "10%",
+            sorter: (a, b) => a.clazz?.academicYear.code?.localeCompare(b.clazz?.academicYear.code),
+            render: (clazz: IClazz) => <span className="text-sm font-medium">{clazz?.academicYear.code}</span>
         },
         {
             title: <span className="font-bold">Role</span>,
@@ -107,9 +117,10 @@ const TableManageUsers = () => {
         },
         {
             title: <span className="font-bold">Score</span>,
+            align: "center" as AlignType,
             key: "score",
             dataIndex: "score",
-            width: "8%",
+            width: "10%",
             sorter: (a, b) => a.score - b.score,
             render: (score: number) => <span className="text-sm font-medium">{score}</span>
         },
@@ -134,7 +145,26 @@ const TableManageUsers = () => {
 
     return (
         <Spin spinning={isLoading}>
-            <Table dataSource={users} columns={columns} rowKey={(record) => record.id} />
+            <Table
+                dataSource={users}
+                pagination={{
+                    current: page,
+                    pageSize: limit,
+                    total: totalRecords,
+                    showSizeChanger: true,
+                    showQuickJumper: true,
+                    onChange: handlePageChange
+                }}
+                columns={columns}
+                rowKey={(record) => record.id}
+            />
+            <StudentDetail
+                title="User Information"
+                placement="right"
+                onClose={() => setIsOpenUserInfor(false)}
+                open={isOpenUserInfor}
+                student={userSelected}
+            />
         </Spin>
     )
 }

@@ -85,6 +85,10 @@
     @apply pointer-events-none opacity-20;
 }
 
+.ant-pagination .ant-pagination-options {
+    @apply ms-0;
+}
+
 .ant-table-wrapper .ant-table-column-sorter-up.active,
 .ant-table-wrapper .ant-table-column-sorter-down.active {
     @apply text-primary;
@@ -232,15 +236,11 @@
 
 /* editor.css */
 .ql-container {
-    @apply rounded-b-lg bg-white;
+    @apply min-h-40 rounded-b-lg bg-white;
 }
 
 .ql-snow.ql-toolbar {
     @apply block rounded-t-lg bg-[#eaecec];
-}
-
-.ql-editor {
-    @apply min-h-40;
 }
 
 .ql-editor blockquote {

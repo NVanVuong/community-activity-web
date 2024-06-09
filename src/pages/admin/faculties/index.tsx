@@ -1,4 +1,4 @@
-import TableManageFaculties from "./TableManageFaculties"
+import TableManageFaculties from "./table"
 import TableToolbar from "@/components/organisms/toolbar"
 import { PAGE } from "@/utils/enums/page.enum"
 import PageHeader from "@/components/organisms/page-header"

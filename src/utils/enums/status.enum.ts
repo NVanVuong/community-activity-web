@@ -1,4 +1,4 @@
-export enum USERACTIVITY_STATUS {
+export enum USER_ACTIVITY_STATUS {
     REGISTERED = "registered",
     CANCELED = "canceled",
     SUBMITTED_PROOF = "submitted_proof",
@@ -6,23 +6,23 @@ export enum USERACTIVITY_STATUS {
     REJECTED = "rejected"
 }
 
-export const USERACTIVITY_STATUS_COLOR = {
-    REGISTERED: "#FFD700",
-    CANCELED: "#FF4500",
-    SUBMITTED_PROOF: "#00BFFF",
-    APPROVED: "#32CD32",
-    REJECTED: "#FF0000"
-} as const
+export const USER_ACTIVITY_STATUS_COLOR: { [key in USER_ACTIVITY_STATUS]: string } = {
+    [USER_ACTIVITY_STATUS.REGISTERED]: "lime",
+    [USER_ACTIVITY_STATUS.CANCELED]: "orange",
+    [USER_ACTIVITY_STATUS.SUBMITTED_PROOF]: "cyan",
+    [USER_ACTIVITY_STATUS.APPROVED]: "green",
+    [USER_ACTIVITY_STATUS.REJECTED]: "red"
+}
 
-export const USERACTIVITY_STATUS_TEXT = {
-    REGISTERED: "Registered",
-    CANCELED: "Canceled",
-    SUBMITTED_PROOF: "Submitted Proof",
-    APPROVED: "Approved",
-    REJECTED: "Rejected"
-} as const
+export const USER_ACTIVITY_STATUS_TEXT: { [key in USER_ACTIVITY_STATUS]: string } = {
+    [USER_ACTIVITY_STATUS.REGISTERED]: "Registered",
+    [USER_ACTIVITY_STATUS.CANCELED]: "Canceled",
+    [USER_ACTIVITY_STATUS.SUBMITTED_PROOF]: "Submitted",
+    [USER_ACTIVITY_STATUS.APPROVED]: "Approved",
+    [USER_ACTIVITY_STATUS.REJECTED]: "Rejected"
+}
 
-export type UserActivityStatusType = keyof typeof USERACTIVITY_STATUS_COLOR
+export type UserActivityStatusType = keyof typeof USER_ACTIVITY_STATUS_COLOR
 
 export enum ACTIVITY_STATUS {
     REGISTRATION_EXPIRED = "registration_expired",
@@ -32,10 +32,10 @@ export enum ACTIVITY_STATUS {
 }
 
 export const ACTIVITY_STATUS_COLOR: { [key in ACTIVITY_STATUS]: string } = {
-    [ACTIVITY_STATUS.REGISTRATION_EXPIRED]: "#FF4500",
-    [ACTIVITY_STATUS.REGISTRATION_OPEN]: "#FFD700",
-    [ACTIVITY_STATUS.EXPIRED]: "#FF0000",
-    [ACTIVITY_STATUS.REGISTERED]: "#32CD32"
+    [ACTIVITY_STATUS.REGISTRATION_EXPIRED]: "volcano",
+    [ACTIVITY_STATUS.REGISTRATION_OPEN]: "gold",
+    [ACTIVITY_STATUS.EXPIRED]: "red",
+    [ACTIVITY_STATUS.REGISTERED]: "green"
 }
 
 export const ACTIVITY_STATUS_TEXT: { [key in ACTIVITY_STATUS]: string } = {

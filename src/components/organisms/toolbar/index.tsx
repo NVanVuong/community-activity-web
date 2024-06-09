@@ -1,4 +1,6 @@
+import IsExternal from "@/components/molecules/external"
 import Search from "@/components/molecules/search"
+import UserQuery from "@/components/molecules/user-query"
 import { openModal } from "@/redux/features/modal/modal.slice"
 import { useAppDispatch } from "@/redux/hook"
 import { MODAL } from "@/utils/constants/modal"
@@ -14,15 +16,20 @@ const TableToolbar: React.FC<TableToolbarProps> = ({ type }) => {
 
     return (
         <div className="mb-4 flex justify-between">
-            <Search />
-
-            <button
-                onClick={() => dispatch(openModal({ type: MODAL.ADD[type] }))}
-                className="flex items-center space-x-2 rounded-xl bg-primary px-3 py-2 text-white"
-            >
-                <FaPlus className="h-3 w-3" />
-                <span className="text-xs font-bold tracking-wide">Add new</span>
-            </button>
+            <div className="flex flex-grow items-center justify-between">
+                <Search />
+                {(type === PAGE.PROOF || type === PAGE.ACTIVITY) && <IsExternal />}
+                {type === PAGE.USER && <UserQuery />}
+            </div>
+            {type !== PAGE.PROOF && (
+                <button
+                    onClick={() => dispatch(openModal({ type: MODAL.ADD[type] }))}
+                    className="ml-4 flex items-center space-x-2 rounded-xl bg-primary px-3 py-2 text-white"
+                >
+                    <FaPlus className="h-3 w-3" />
+                    <span className="text-xs font-bold tracking-wide">Add new</span>
+                </button>
+            )}
         </div>
     )
 }

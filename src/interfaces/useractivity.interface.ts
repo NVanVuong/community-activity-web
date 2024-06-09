@@ -1,8 +1,10 @@
-import { USERACTIVITY_STATUS } from "@/utils/enums/status.enum"
+import { USER_ACTIVITY_STATUS } from "@/utils/enums/status.enum"
+import { IActivity } from "./activity.interface"
+import { IUser } from "./user.interface"
 
 export interface IUserActivity {
     id: string
-    activityId: string
-    userId: string
-    status: USERACTIVITY_STATUS
+    activity: IActivity
+    user: IUser
+    status: USER_ACTIVITY_STATUS
 }

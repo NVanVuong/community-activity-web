@@ -5,16 +5,21 @@ import { Badge, Dropdown, Progress, Space, Spin } from "antd"
 import { useMenuActions } from "../hooks/useMenuActions"
 import Table from "@/components/organisms/table"
 import { useAppSelector } from "@/redux/hook"
-import { useGetActivitiesQuery } from "@/redux/services/activities/activities.slice"
+import { useGetActivitiesQuery } from "@/redux/services/activities/activities.service"
 import { formatDate } from "@/utils/helpers"
 import { ACTIVITY_STATUS, ACTIVITY_STATUS_COLOR, ACTIVITY_STATUS_TEXT } from "@/utils/enums/status.enum"
 import { IActivity } from "@/interfaces/activity.interface"
 
 const TableManageActivites = () => {
     const keyword = useAppSelector((state) => state.search.keyword)
+    const isExternal = useAppSelector((state) => state.search.isExternal)
     const { data, isLoading } = useGetActivitiesQuery({ keyword: keyword })
 
-    const activities = data?.data as IActivity[]
+    const activitiesData = data?.data as IActivity[]
+
+    const activities = isExternal
+        ? activitiesData?.filter((activity) => activity.isExternal)
+        : activitiesData?.filter((activity) => !activity.isExternal)
 
     const getMenuActions = useMenuActions()
 

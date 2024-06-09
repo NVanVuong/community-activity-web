@@ -1,8 +1,8 @@
-import TableManageClasses from "./TableManageClasses"
 import TableToolbar from "@/components/organisms/toolbar"
 import { PAGE } from "@/utils/enums/page.enum"
 import PageHeader from "@/components/organisms/page-header"
 import ModalClass from "./modal"
+import TableManageClasses from "./table"
 
 const Classes = () => {
     return (

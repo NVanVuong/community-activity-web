@@ -32,7 +32,7 @@ export interface IActivityResponse extends IBaseRespone {
 export interface IActivityCreateRequest extends FormData {}
 
 export interface IActivityUpdateRequest {
-    id: IActivityId
+    id: string
     formData: FormData
 }
 

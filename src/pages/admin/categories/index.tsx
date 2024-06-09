@@ -1,9 +1,9 @@
-import TableManageCategories from "./TableManageCategories"
 import TableToolbar from "@/components/organisms/toolbar"
 import { PAGE } from "@/utils/enums/page.enum"
 import PageHeader from "@/components/organisms/page-header"
 import ModalCategories from "./modal"
 import ModalSubcategories from "./subcategories/modal"
+import TableManageCategories from "./table"
 
 const Categories = () => {
     return (

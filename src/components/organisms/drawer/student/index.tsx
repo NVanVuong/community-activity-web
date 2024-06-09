@@ -1,14 +1,14 @@
 import React from "react"
 import { Drawer, Descriptions, Image } from "antd"
 import { IUser } from "@/interfaces/user.interface"
-import { AVATAR_DEFAULT_URL } from "@/utils/constants/global-contants"
+import { AvatarDefault } from "@/assets/images"
 
 interface StudentDrawerProps {
     title: string
     placement?: "top" | "right" | "bottom" | "left"
     width?: number | string
     open: boolean
-    onClose: () => void
+    onClose?: () => void
     student?: IUser
 }
 
@@ -32,7 +32,7 @@ const StudentDetail: React.FC<StudentDrawerProps> = ({
                     <Image
                         width={100}
                         height={100}
-                        src={avatar || AVATAR_DEFAULT_URL}
+                        src={avatar || AvatarDefault}
                         preview={false}
                         className="rounded-full ring-2 ring-primary ring-offset-2"
                     />

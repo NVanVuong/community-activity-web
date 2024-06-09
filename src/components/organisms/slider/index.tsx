@@ -63,6 +63,9 @@ const Slider = () => {
             case "categories":
                 navigate(SITE_MAP.CATEGORIES)
                 break
+            case "proofs":
+                navigate(SITE_MAP.PROOFS)
+                break
             default:
                 break
         }

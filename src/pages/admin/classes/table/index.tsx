@@ -2,13 +2,13 @@ import { ColumnsType } from "antd/es/table"
 import { AlignType } from "rc-table/lib/interface"
 import { FaEllipsis } from "react-icons/fa6"
 import { Dropdown, Space, Spin } from "antd"
-import { useMenuActions } from "./hooks/useMenuActions"
 import Table from "@/components/organisms/table"
 import { IAcademicYear, IClazz } from "@/interfaces/clazz.interface"
 import { useAppSelector } from "@/redux/hook"
 import { useEffect, useState } from "react"
 import { useGetClassesQuery } from "@/redux/services/classes/classes.service"
 import { IFaculty } from "@/interfaces/faculty.interface"
+import { useMenuActions } from "../hooks/useMenuActions"
 
 interface FilterOption {
     text: string

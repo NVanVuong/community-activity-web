@@ -1,4 +1,5 @@
 import {
+    ICreateUserRequest,
     IMyInfoRespone,
     IUpdateMyInfoRequest,
     IUpdateMyInfoResponse,
@@ -8,12 +9,14 @@ import {
     IUsersResponse
 } from "@/interfaces/user.interface"
 import { createApiWithAuth } from "../auth/auth.service"
+import { create } from "lodash"
 
 const creatApiUserWithAuth = createApiWithAuth("userApi", ["Users"])
 export const userApi = creatApiUserWithAuth.injectEndpoints({
     endpoints: (builder) => ({
         getUsers: builder.query<IUsersResponse, IUserQuery>({
-            query: ({ keyword = "" }) => `/users?keyword=${keyword}`,
+            query: ({ keyword = "", classId = "", facultyId = "", yearId = "", page = 1, limit = 10 }) =>
+                `/users?keyword=${keyword}&classId=${classId}&facultyId=${facultyId}&yearId=${yearId}&page=${page}&limit=${limit}`,
             providesTags: ["Users"]
         }),
         getUsersByClass: builder.query<IUsersResponse, IUserByClassQuery>({
@@ -38,6 +41,21 @@ export const userApi = creatApiUserWithAuth.injectEndpoints({
                 method: "PUT",
                 body: data
             })
+        }),
+        createUser: builder.mutation<IUsersResponse, ICreateUserRequest>({
+            query: (data) => ({
+                url: "/users",
+                method: "POST",
+                body: data
+            }),
+            invalidatesTags: ["Users"]
+        }),
+        deleteUser: builder.mutation<IUsersResponse, string>({
+            query: (id) => ({
+                url: `/users/${id}`,
+                method: "DELETE"
+            }),
+            invalidatesTags: ["Users"]
         })
     })
 })
@@ -47,5 +65,7 @@ export const {
     useGetUsersByClassQuery,
     useGetMyInfoQuery,
     useUpdateMyInfoMutation,
-    useUpdatePasswordMutation
+    useUpdatePasswordMutation,
+    useCreateUserMutation,
+    useDeleteUserMutation
 } = userApi

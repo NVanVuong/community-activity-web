@@ -1,11 +1,16 @@
 import { Table as TableAntd } from "antd"
-import { TableProps, TablePaginationConfig } from "antd/lib/table"
+import { TablePaginationConfig } from "antd/lib/table"
 
-interface ITable<T> extends TableProps<T> {
+interface ITable<T> {
+    dataSource: T[]
+    columns: any
+    rowKey: (record: T) => string
+    pagination?: false | TablePaginationConfig
     pageSize?: number
+    total?: number
 }
 
-const Table = <T extends object>({ pagination, pageSize, ...props }: ITable<T>) => {
+const Table = <T extends object>({ pagination, pageSize, total, ...props }: ITable<T>) => {
     const paginationConfig: false | TablePaginationConfig =
         pagination !== false
             ? {
@@ -15,17 +20,19 @@ const Table = <T extends object>({ pagination, pageSize, ...props }: ITable<T>) 
                   pageSize: pageSize || 8,
                   showSizeChanger: false,
                   responsive: true,
-                  showLessItems: true
+                  showLessItems: true,
+                  total: total,
+                  ...pagination
               }
             : false
 
     return (
         <TableAntd
-            pagination={paginationConfig}
-            dataSource={props.dataSource}
-            columns={props.columns}
-            rowKey={props.rowKey}
             {...props}
+            pagination={paginationConfig}
+            rowKey={props.rowKey}
+            columns={props.columns}
+            dataSource={props.dataSource}
         />
     )
 }

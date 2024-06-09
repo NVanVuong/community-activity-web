@@ -4,7 +4,7 @@ import { AlignType } from "rc-table/lib/interface"
 import Table from "@/components/organisms/table"
 import { useState } from "react"
 import { HiOutlineViewfinderCircle } from "react-icons/hi2"
-import StudentDetail from "./student-detail"
+import StudentDetail from "@/components/organisms/drawer/student"
 
 const StudentsList = ({ students }: { students: IUser[] }) => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false)

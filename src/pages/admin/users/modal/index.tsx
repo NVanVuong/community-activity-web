@@ -1,40 +1,26 @@
-import { MODAL, USER_STATUS } from "@/utils/constants/GlobalConst"
 import { useAppSelector } from "@/redux/hook"
-import ModalAntd from "@/components/Modal"
-import ModalUpdate from "./modalUpdate"
-import ModalAdd from "./modalAdd"
-import ModalView from "./modalView"
-import ModalDisable from "./modalDisable"
 import { IUser } from "@/interfaces/user.interface"
+import Modal from "@/components/organisms/modal"
+import { MODAL } from "@/utils/constants/modal"
+import AddUser from "./add"
+import DeleteUser from "./delete"
 
 const ModalUser = () => {
     const type = useAppSelector((state) => state.modal.type)
     const userData = useAppSelector((state) => state.modal.data) as IUser
 
-    const isActive = userData?.status === USER_STATUS.ACTIVE
-
     const getModalContent = () => {
         switch (type) {
             case MODAL.ADD.USER:
-                return <ModalAdd title="Register New Account" />
-            case MODAL.UPDATE.USER:
-                return <ModalUpdate title="Edit Account Information" data={userData} />
-            case MODAL.VIEW.USER:
-                return <ModalView title="Account Overview" data={userData} />
-            case MODAL.DISABLE.USER:
-                return (
-                    <ModalDisable
-                        title={isActive ? "Deactivate Account" : "Activate Account"}
-                        isActive={isActive}
-                        data={userData}
-                    />
-                )
+                return <AddUser title="Create User" />
+            case MODAL.DELETE.USER:
+                return <DeleteUser title="Delete User" data={userData} />
             default:
                 return null
         }
     }
 
-    return <ModalAntd>{getModalContent()}</ModalAntd>
+    return <Modal>{getModalContent()}</Modal>
 }
 
 export default ModalUser

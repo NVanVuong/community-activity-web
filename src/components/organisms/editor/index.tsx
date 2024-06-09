@@ -22,14 +22,18 @@ const modules = {
 }
 
 function Editor(props: any) {
+    const handleDescriptionChange = (value: any, _delta: any, source: any) => {
+        if (source === "user") {
+            props.setDescription(value)
+        }
+    }
     return (
         <ReactQuill
             className="w-full"
             value={props.description}
-            onChange={(value) => {
-                props.setDescription(value)
-            }}
+            onChange={handleDescriptionChange}
             modules={modules}
+            theme="snow"
         />
     )
 }

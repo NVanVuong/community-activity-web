@@ -28,6 +28,7 @@ export const MODAL = {
         CLASS: "VIEW_CLASS",
         FACULTY: "VIEW_FACULTY",
         CATEGORY: "VIEW_CATEGORY",
-        ACTIVITY: "VIEW_ACTIVITY"
+        ACTIVITY: "VIEW_ACTIVITY",
+        PROOF: "VIEW_PROOF"
     }
 } as const
