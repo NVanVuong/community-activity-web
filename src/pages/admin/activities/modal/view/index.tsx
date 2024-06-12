@@ -52,11 +52,20 @@ const ViewActivity = (props: IModal) => {
                 </div>
                 <div className="p-6">
                     <div className="flex justify-between">
-                        <p className="text-sm text-gray-500">Activity ID: {id}</p>
-                        <Tag color={ACTIVITY_STATUS_COLOR[status]}>{ACTIVITY_STATUS_TEXT[status]}</Tag>
+                        <p className="text-bl text-sm text-gray-500">
+                            <span className="font-medium text-black">Activity ID:</span> {id}
+                        </p>
+                        <Tag className="m-0" color={ACTIVITY_STATUS_COLOR[status]}>
+                            {ACTIVITY_STATUS_TEXT[status]}
+                        </Tag>
                     </div>
-                    <p className="text-md mt-2 text-gray-500">Subcategory: {subcategoryName}</p>
-                    <div className="ql-editor" dangerouslySetInnerHTML={{ __html: description }}></div>
+                    <p className="text-md mt-2 text-gray-500">
+                        <span className="font-medium text-black">Subcategory:</span> {subcategoryName}
+                    </p>
+                    <p className="text-md mt-2">
+                        <span className="font-medium text-black">Description:</span>
+                        <div className="ql-editor p-0 pb-2" dangerouslySetInnerHTML={{ __html: description }}></div>
+                    </p>
                     <div className="mt-2 grid grid-cols-1 gap-6 md:grid-cols-2">
                         <div className="flex items-center space-x-4 rounded-lg bg-gray-50 p-4 shadow-md">
                             <CalendarOutlined className="text-2xl text-gray-500" />

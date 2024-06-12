@@ -28,11 +28,9 @@ const UpdateSubategory = (props: IModal) => {
             <Title>{title}</Title>
             <Form
                 onFinish={onFinish}
-                labelCol={{ span: 4 }}
-                wrapperCol={{ span: 14 }}
                 initialValues={initialValues}
                 layout="horizontal"
-                className="flex w-100 flex-col items-center gap-2"
+                className="flex w-100 flex-col items-center"
             >
                 <Form.Item className="w-full" name="name" rules={[{ required: true, message: "Please input name!" }]}>
                     <Input placeholder="Name" className="h-10" />

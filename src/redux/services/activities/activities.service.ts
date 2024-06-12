@@ -6,6 +6,8 @@ import {
     IActivityId
 } from "@/interfaces/activity.interface"
 import { createApiWithAuth } from "../auth/auth.service"
+import { IUserActivityQuery, IUserActivityResponse } from "@/interfaces/useractivity.interface"
+import { IProofResponse, IProofSubmitRequest } from "@/interfaces/proof.interface"
 
 const creatApiUserWithAuth = createApiWithAuth("activityApi", ["activities"])
 export const activityApi = creatApiUserWithAuth.injectEndpoints({
@@ -13,6 +15,12 @@ export const activityApi = creatApiUserWithAuth.injectEndpoints({
         getActivities: builder.query<IActivityResponse, IActivityQuery>({
             query({ keyword = "" }) {
                 return `/activities?keyword=${keyword}`
+            },
+            providesTags: ["activities"]
+        }),
+        getMyActivities: builder.query<IUserActivityResponse, IUserActivityQuery>({
+            query({ keyword = "" }) {
+                return `/my-activities?keyword=${keyword}`
             },
             providesTags: ["activities"]
         }),
@@ -62,15 +70,27 @@ export const activityApi = creatApiUserWithAuth.injectEndpoints({
                 }
             },
             invalidatesTags: ["activities"]
+        }),
+        submitProof: builder.mutation<IProofResponse, IProofSubmitRequest>({
+            query({ id, formData: body }) {
+                return {
+                    url: `/proofs/${id}/submit`,
+                    method: "POST",
+                    body
+                }
+            },
+            invalidatesTags: ["activities"]
         })
     })
 })
 
 export const {
     useGetActivitiesQuery,
+    useGetMyActivitiesQuery,
     useCreateActivityMutation,
     useUpdateActivityMutation,
     useDeleteActivityMutation,
     useRegisterActivityMutation,
-    useCancelActivityMutation
+    useCancelActivityMutation,
+    useSubmitProofMutation
 } = activityApi

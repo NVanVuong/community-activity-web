@@ -4,5 +4,7 @@ export enum PAGE {
     FACULTY = "FACULTY",
     ACTIVITY = "ACTIVITY",
     CATEGORY = "CATEGORY",
-    PROOF = "PROOF"
+    PROOF = "PROOF",
+    MY_ACTIVITIES = "MY_ACTIVITIES",
+    MY_PROOFS = "MY_PROOFS"
 }

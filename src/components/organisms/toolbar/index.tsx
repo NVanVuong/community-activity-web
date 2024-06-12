@@ -8,7 +8,15 @@ import { PAGE } from "@/utils/enums/page.enum"
 import { FaPlus } from "react-icons/fa6"
 
 interface TableToolbarProps {
-    type: PAGE.USER | PAGE.CLASS | PAGE.FACULTY | PAGE.ACTIVITY | PAGE.CATEGORY | PAGE.PROOF
+    type:
+        | PAGE.USER
+        | PAGE.CLASS
+        | PAGE.FACULTY
+        | PAGE.ACTIVITY
+        | PAGE.CATEGORY
+        | PAGE.PROOF
+        | PAGE.MY_ACTIVITIES
+        | PAGE.MY_PROOFS
 }
 
 const TableToolbar: React.FC<TableToolbarProps> = ({ type }) => {
@@ -21,13 +29,15 @@ const TableToolbar: React.FC<TableToolbarProps> = ({ type }) => {
                 {(type === PAGE.PROOF || type === PAGE.ACTIVITY) && <IsExternal />}
                 {type === PAGE.USER && <UserQuery />}
             </div>
-            {type !== PAGE.PROOF && (
+            {type !== PAGE.PROOF && type !== PAGE.MY_ACTIVITIES && (
                 <button
                     onClick={() => dispatch(openModal({ type: MODAL.ADD[type] }))}
                     className="ml-4 flex items-center space-x-2 rounded-xl bg-primary px-3 py-2 text-white"
                 >
                     <FaPlus className="h-3 w-3" />
-                    <span className="text-xs font-bold tracking-wide">Add new</span>
+                    <span className="text-xs font-bold tracking-wide">
+                        {type === PAGE.MY_PROOFS ? "Submit proof for external activity" : "Add new"}
+                    </span>
                 </button>
             )}
         </div>

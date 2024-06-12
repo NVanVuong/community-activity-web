@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit"
 import authSlice from "./features/auth/auth.slice"
 import modalSlice from "./features/modal/modal.slice"
 import searchSlice from "./features/search/search.slice"
+import filterSlice from "./features/filter/filter.slice"
 import { authApi } from "./services/auth/auth.service"
 import { userApi } from "./services/users/users.service"
 import { classApi } from "./services/classes/classes.service"
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
     auth: authSlice,
     search: searchSlice,
     modal: modalSlice,
+    filter: filterSlice,
     [authApi.reducerPath]: authApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
     [classApi.reducerPath]: classApi.reducer,

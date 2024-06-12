@@ -32,6 +32,27 @@ export const createActivityFormData = (values: any) => {
     return formData
 }
 
+export const createProofInternalData = (values: any) => {
+    const formData = new FormData()
+    formData.append("name", values.name)
+    if (values.image) formData.append("image", values.image[0].originFileObj)
+
+    return formData
+}
+
+export const createProofExternalData = (values: any) => {
+    const formData = new FormData()
+    formData.append("name", values.name)
+    formData.append("subcategoryId", values.subcategoryId)
+    formData.append("score", values.score)
+    formData.append("startDate", values.startDate)
+    formData.append("endDate", values.endDate)
+    formData.append("address", values.address)
+    if (values.image) formData.append("image", values.image[0].originFileObj)
+
+    return formData
+}
+
 export const formatDate = (dateString: any) => {
     const date = new Date(dateString)
     const day = date.getDate().toString().padStart(2, "0")

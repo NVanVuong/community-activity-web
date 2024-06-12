@@ -6,6 +6,8 @@ export default {
                 primary: "#51ACE4",
                 secondary: "#3A81B3",
                 third: "#d0ebff",
+                dark: "#0C2D48",
+                light: "#B1D4E0",
                 "gray-0": "#e0e0e0"
             },
             width: {

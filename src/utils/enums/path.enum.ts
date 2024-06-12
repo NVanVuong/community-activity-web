@@ -1,5 +1,4 @@
 export enum SITE_MAP {
-    _ = "*",
     INDEX = "/",
     SIGNIN = "/signin",
     ADMIN = "/admin",
@@ -10,5 +9,10 @@ export enum SITE_MAP {
     ACTIVITIES = "activities",
     PROOFS = "proofs",
     CATEGORIES = "categories",
-    MY_PROFILE = "/me"
+    MY_FAVORITES = "my-favorites",
+    MY_ACTIVITIES = "my-activities",
+    MY_PROOFS = "my-proofs",
+    MY_PROFILE = "/me",
+    FORBIDDEN = "/403",
+    NOT_FOUND = "*"
 }

@@ -31,6 +31,7 @@ export interface ISubcategory {
     name: string
     minScore: number
     maxScore: number
+    category?: ICategory
 }
 
 export interface ISubcategoryResponse extends IBaseRespone {

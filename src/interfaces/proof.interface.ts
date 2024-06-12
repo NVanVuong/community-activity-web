@@ -18,7 +18,7 @@ export interface IProofResponse extends IBaseRespone {
 
 export interface IProofCreateRequest extends FormData {}
 
-export interface IProofUpdateRequest {
+export interface IProofSubmitRequest {
     id: string
     formData: FormData
 }

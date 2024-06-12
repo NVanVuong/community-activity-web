@@ -12,4 +12,11 @@ export const ROLE_COLORS = {
     [ROLE.ADMIN]: "#51ACE4"
 }
 
+export const ROLE_TEXT: { [key in ROLE]: string } = {
+    [ROLE.USER]: "User",
+    [ROLE.CLASS]: "Class",
+    [ROLE.FACULTY]: "Faculty",
+    [ROLE.ADMIN]: "Admin"
+}
+
 export type RoleType = keyof typeof ROLE_COLORS

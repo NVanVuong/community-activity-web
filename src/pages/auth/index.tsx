@@ -26,7 +26,7 @@ const SignIn = () => {
     return (
         <div className="flex h-screen items-center justify-center bg-gradient-to-r from-primary to-secondary/20">
             <div className="flex overflow-hidden rounded-2xl bg-white shadow-xl">
-                <div className="w-112 flex flex-col items-center justify-center px-6 py-20">
+                <div className="flex w-112 flex-col items-center justify-center px-6 py-20">
                     <div className="">
                         <img src={BackgroundActivity} alt="Background activity" className="w-96" />
                     </div>
@@ -37,7 +37,7 @@ const SignIn = () => {
                         <br /> Easily find and oversee your own.
                     </p>
                 </div>
-                <div className="w-112 flex h-auto flex-col items-center justify-center bg-primary/10">
+                <div className="flex h-auto w-112 flex-col items-center justify-center bg-primary/10">
                     <img src={LogoFull} alt="Logo" className="mb-8 h-16" />
                     <h2 className="mb-2 text-center text-2xl font-bold uppercase text-secondary">Sign In</h2>
                     <Form name="sign_in" className="w-80" layout="vertical" onFinish={onFinish} requiredMark={false}>

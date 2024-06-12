@@ -5,15 +5,15 @@ import { signOut } from "@/redux/features/auth/auth.slice"
 import { MdOutlineMenu } from "react-icons/md"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { HiLogin } from "react-icons/hi"
 import { AvatarDefault } from "@/assets/images"
 import useAuth from "@/hooks/useAuth"
 import { SITE_MAP } from "@/utils/enums/path.enum"
 import { ItemType } from "antd/es/menu/interface"
 import { useAppDispatch } from "@/redux/hook"
+import { ROLE } from "@/utils/enums/role.enum"
 
 const UserMenu = () => {
-    const { user, isAuth } = useAuth()
+    const { user, role } = useAuth()
     const [isOpen, setIsOpen] = useState(false)
 
     const navigate = useNavigate()
@@ -29,7 +29,7 @@ const UserMenu = () => {
                 break
             case "signout":
                 dispatch(signOut())
-                navigate(SITE_MAP.INDEX)
+                navigate(SITE_MAP.SIGNIN)
                 break
             case "signin":
                 navigate(SITE_MAP.SIGNIN)
@@ -39,13 +39,13 @@ const UserMenu = () => {
         }
     }
 
-    const itemsUser: ItemType[] = [
+    const items: ItemType[] = [
         {
             key: "profile",
             label: "My Profile",
             icon: <BiUser className="mr-4 h-4 w-4" />
         },
-        {
+        role === ROLE.ADMIN && {
             key: "admin",
             label: "Admin",
             icon: <MdOutlineAdminPanelSettings className="mr-4 h-4 w-4" />
@@ -59,16 +59,6 @@ const UserMenu = () => {
             icon: <MdLogout className="mr-4 h-4 w-4" />
         }
     ].filter(Boolean) as ItemType[]
-
-    const itemGuest: MenuProps["items"] = [
-        {
-            key: "signin",
-            label: "Sign In",
-            icon: <HiLogin className="mr-4 h-4 w-4" />
-        }
-    ]
-
-    const items = isAuth ? itemsUser : itemGuest
 
     return (
         <Dropdown

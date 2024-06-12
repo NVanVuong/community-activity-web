@@ -3,7 +3,7 @@ import {
     IProofId,
     IProofQuery,
     IProofResponse,
-    IProofUpdateRequest
+    IProofSubmitRequest
 } from "@/interfaces/proof.interface"
 import { createApiWithAuth } from "../auth/auth.service"
 
@@ -16,17 +16,13 @@ export const proofApi = creatApiUserWithAuth.injectEndpoints({
             },
             providesTags: ["proofs"]
         }),
-        createProof: builder.mutation<IProofResponse, IProofCreateRequest>({
-            query(body) {
-                return {
-                    url: "/proofs",
-                    method: "POST",
-                    body
-                }
+        getMyProofs: builder.query<IProofResponse, IProofQuery>({
+            query({ keyword = "" }) {
+                return `/proofs/me?keyword=${keyword}`
             },
-            invalidatesTags: ["proofs"]
+            providesTags: ["proofs"]
         }),
-        updateProof: builder.mutation<IProofResponse, IProofUpdateRequest>({
+        updateProof: builder.mutation<IProofResponse, IProofSubmitRequest>({
             query({ id, formData: body }) {
                 return {
                     url: `/proofs/${id}`,
@@ -45,7 +41,7 @@ export const proofApi = creatApiUserWithAuth.injectEndpoints({
             },
             invalidatesTags: ["proofs"]
         }),
-        aprroveProof: builder.mutation<IProofResponse, { id: string }>({
+        aprroveProof: builder.mutation<IProofResponse, string>({
             query(id) {
                 return {
                     url: `/proofs/${id}/approve`,
@@ -54,11 +50,21 @@ export const proofApi = creatApiUserWithAuth.injectEndpoints({
             },
             invalidatesTags: ["proofs"]
         }),
-        rejectProof: builder.mutation<IProofResponse, { id: string }>({
+        rejectProof: builder.mutation<IProofResponse, string>({
             query(id) {
                 return {
                     url: `/proofs/${id}/reject`,
                     method: "POST"
+                }
+            },
+            invalidatesTags: ["proofs"]
+        }),
+        submitProofExternal: builder.mutation<IProofResponse, IProofCreateRequest>({
+            query(body) {
+                return {
+                    url: `/proofs`,
+                    method: "POST",
+                    body
                 }
             },
             invalidatesTags: ["proofs"]
@@ -68,9 +74,10 @@ export const proofApi = creatApiUserWithAuth.injectEndpoints({
 
 export const {
     useGetProofsQuery,
-    useCreateProofMutation,
+    useGetMyProofsQuery,
     useUpdateProofMutation,
     useDeleteProofMutation,
     useAprroveProofMutation,
-    useRejectProofMutation
+    useRejectProofMutation,
+    useSubmitProofExternalMutation
 } = proofApi

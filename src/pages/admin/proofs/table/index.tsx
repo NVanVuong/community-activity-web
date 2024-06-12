@@ -91,7 +91,7 @@ const TableManageProofs = () => {
             key: "status",
             width: "8%",
             filters: [
-                { text: "Submitted", value: USER_ACTIVITY_STATUS.SUBMITTED_PROOF },
+                { text: "Submitted", value: USER_ACTIVITY_STATUS.SUBMITTED },
                 { text: "Approved", value: USER_ACTIVITY_STATUS.APPROVED },
                 { text: "Canceled", value: USER_ACTIVITY_STATUS.CANCELED }
             ],

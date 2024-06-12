@@ -13,6 +13,7 @@ import { MODAL } from "@/utils/constants/modal"
 import { useGetMyInfoQuery, useUpdateMyInfoMutation } from "@/redux/services/users/users.service"
 import ModalUpdatePassword from "./update-password"
 import { ROLE } from "@/utils/enums/role.enum"
+import Header from "@/components/organisms/header"
 
 const MyProfile = () => {
     const dispatch = useAppDispatch()
@@ -65,6 +66,7 @@ const MyProfile = () => {
 
     return (
         <>
+            <Header />
             <div className="mx-auto mb-10 mt-32 w-160">
                 <div className="w-full text-right">
                     <Button
@@ -84,7 +86,7 @@ const MyProfile = () => {
                                     className="rounded-full ring-2 ring-primary ring-offset-4"
                                 />
                             </div>
-                            <h3 className="bold mb-4 text-xl">{user?.name}</h3>
+                            <h3 className="mb-4 text-xl font-bold">{user?.name}</h3>
                         </div>
 
                         <Spin spinning={isLoadingMyInfo}>
@@ -94,11 +96,11 @@ const MyProfile = () => {
                                         <div className="w-full px-4 text-center">
                                             <div className="text-center">
                                                 <div className="flex w-full justify-center gap-8">
-                                                    <p className="bold">
+                                                    <p className="font-bold">
                                                         <span className="text-black">Score: </span>
                                                         <span className="text-primary">{myInfo?.user?.score}</span>
                                                     </p>
-                                                    <p className="bold">
+                                                    <p className="font-bold">
                                                         <span className="text-black">Total activities: </span>
                                                         <span className="text-primary">
                                                             {myInfo?.totalUserActivities}
@@ -110,15 +112,15 @@ const MyProfile = () => {
                                         <div className="flex w-full items-center gap-16">
                                             <div className="my-4 flex flex-col justify-between gap-2">
                                                 <div>
-                                                    <span className="bold">StudentID: </span>
+                                                    <span className="font-bold">StudentID: </span>
                                                     {myInfo?.user?.studentId}
                                                 </div>
                                                 <div>
-                                                    <span className="bold">Class: </span>
+                                                    <span className="font-bold">Class: </span>
                                                     {myInfo?.user?.clazz.name}
                                                 </div>
                                                 <div>
-                                                    <span className="bold">Faculty: </span>
+                                                    <span className="font-bold">Faculty: </span>
                                                     {myInfo?.user?.clazz.faculty.name}
                                                 </div>
                                             </div>

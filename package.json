@@ -16,6 +16,7 @@
     "@xeger/quill-image-formats": "^0.7.2",
     "antd": "^5.17.4",
     "antd-img-crop": "^4.22.0",
+    "dayjs": "^1.11.11",
     "eslint-plugin-react": "^7.34.2",
     "jwt-decode": "^4.0.0",
     "lodash": "^4.17.21",

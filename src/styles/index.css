@@ -37,6 +37,28 @@
     @apply h-12;
 }
 
+.silder-header.ant-menu-light .ant-menu-item-selected {
+    @apply bg-white shadow-md;
+}
+
+.silder-header.ant-menu-light .ant-menu-item-selected,
+.silder-header.ant-menu-light .ant-menu-submenu-selected > .ant-menu-submenu-title {
+    @apply text-primary;
+}
+
+.silder-header.ant-menu-light,
+.silder-header.ant-menu-light > .ant-menu-submenu-title {
+    @apply text-gray-400;
+}
+
+.silder-header.ant-menu-light:not(.ant-menu-horizontal) .ant-menu-item:not(.ant-menu-item-selected):hover {
+    @apply bg-gray-100 shadow;
+}
+
+.silder-header.ant-menu-inline .ant-menu-item {
+    @apply !pl-0;
+}
+
 /* table.css */
 .ant-pagination .ant-pagination-item {
     @apply me-4 bg-gray-0 text-black;
@@ -47,7 +69,7 @@
 }
 
 .ant-table-wrapper .ant-table-tbody .ant-table-row > .ant-table-cell-row-hover {
-    @apply bg-primary/10;
+    @apply bg-secondary/10;
 }
 
 .ant-table-wrapper .ant-table-thead > tr > th {
@@ -82,7 +104,7 @@
 
 .ant-pagination .ant-pagination-disabled,
 .ant-pagination .ant-pagination-disabled:hover {
-    @apply pointer-events-none opacity-20;
+    @apply pointer-events-none opacity-60;
 }
 
 .ant-pagination .ant-pagination-options {
@@ -250,3 +272,17 @@
 .ql-editor img {
     @apply inline-block !cursor-default;
 }
+
+.ant-tabs-nav-operations {
+    @apply !hidden;
+}
+
+.ant-tabs-top > .ant-tabs-nav {
+    @apply !m-0;
+}
+
+/* .home {
+    .ant-table {
+        @apply overflow-hidden rounded-xl shadow-md;
+    }
+} */

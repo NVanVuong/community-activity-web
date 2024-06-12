@@ -17,7 +17,7 @@ const ModalProofs = () => {
             // case MODAL.DELETE.ACTIVITY:
             //     return <DeleteActivity title="Delete Activity" data={activity} />
             case MODAL.VIEW.PROOF:
-                return <ViewProof title="Proof Overview" data={proof} />
+                return <ViewProof title="Proof Detail" data={proof} />
             default:
                 return null
         }

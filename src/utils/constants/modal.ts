@@ -6,7 +6,9 @@ export const MODAL = {
         CATEGORY: "ADD_CATEGORY",
         SUBCATEGORY: "ADD_SUBCATEGORY",
         ACTIVITY: "ADD_ACTIVITY",
-        PROOF: "ADD_PROOF"
+        PROOF: "ADD_PROOF",
+        MY_ACTIVITIES: "ADD_MY_ACTIVITIES",
+        MY_PROOFS: "ADD_MY_PROOFS"
     },
     UPDATE: {
         USER: "UPDATE_USER",
@@ -30,5 +32,14 @@ export const MODAL = {
         CATEGORY: "VIEW_CATEGORY",
         ACTIVITY: "VIEW_ACTIVITY",
         PROOF: "VIEW_PROOF"
+    },
+    REGISTER: {
+        ACTIVITY: "REGISTER_ACTIVITY"
+    },
+    CANCEL: {
+        ACTIVITY: "CANCEL_ACTIVITY"
+    },
+    SUBMIT: {
+        PROOF: "SUBMIT_PROOF"
     }
 } as const
