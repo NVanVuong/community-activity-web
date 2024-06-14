@@ -17,6 +17,8 @@ const SignIn = () => {
         const res = await signIn(values).unwrap()
         if (res.success) {
             dispatch(setCredentials({ accessToken: res.data.accessToken }))
+            console.log("Received values of form: ", res.data.accessToken)
+
             navigate(SITE_MAP.INDEX)
         }
     }

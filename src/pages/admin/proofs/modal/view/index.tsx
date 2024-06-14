@@ -1,6 +1,6 @@
 import { IModal, closeModal } from "@/redux/features/modal/modal.slice"
 import { USER_ACTIVITY_STATUS, USER_ACTIVITY_STATUS_COLOR, USER_ACTIVITY_STATUS_TEXT } from "@/utils/enums/status.enum"
-import { Button, Image, Tag } from "antd"
+import { Button, Form, Image, Input, Tag } from "antd"
 import { IProof } from "@/interfaces/proof.interface"
 import { IUser } from "@/interfaces/user.interface"
 import { useState } from "react"
@@ -11,6 +11,9 @@ import { useAprroveProofMutation, useRejectProofMutation } from "@/redux/service
 import useServerMessage from "@/hooks/useServerMessage"
 import Title from "@/components/molecules/title-modal"
 import { useAppDispatch } from "@/redux/hook"
+import Comment from "@/components/molecules/comment"
+
+const { TextArea } = Input
 
 const ViewProof = (props: IModal) => {
     const title = props.title
@@ -20,6 +23,7 @@ const ViewProof = (props: IModal) => {
         description,
         image,
         name,
+        comments,
         userActivity: { status, user, activity }
     } = proof
 
@@ -29,6 +33,9 @@ const ViewProof = (props: IModal) => {
     const [isDrawerAcitivityOpen, setIsDrawerActivityOpen] = useState(false)
     const [selectedStudent, setSelectedStudent] = useState({} as IUser)
     const [selectedActivity, setSelectedActivity] = useState({} as IActivity)
+
+    const [isCommentRequired, setIsCommentRequired] = useState(false)
+    const [actionType, setActionType] = useState("")
 
     const [approveProof, { data: aprrveData, error: approveError, isLoading: approveIsLoading }] =
         useAprroveProofMutation()
@@ -47,19 +54,36 @@ const ViewProof = (props: IModal) => {
     useServerMessage({ data: aprrveData, error: approveError })
     useServerMessage({ data: rejectData, error: rejectError })
 
-    const handleApprove = async () => {
-        const result = await approveProof(id)
+    const [form] = Form.useForm()
 
-        if (result.data?.success) {
-            dispatch(closeModal())
-        }
+    const handleApprove = () => {
+        setActionType("approve")
+        setIsCommentRequired(false)
+        form.submit()
     }
 
-    const handleReject = async () => {
-        const result = await rejectProof(id)
+    const handleReject = () => {
+        setActionType("reject")
+        setIsCommentRequired(true)
+        form.submit()
+    }
 
-        if (result.data?.success) {
-            dispatch(closeModal())
+    const onFinish = async (values: any) => {
+        if (actionType === "approve") {
+            const result = await approveProof({
+                id,
+                ...(values.comment && { comment: values.comment })
+            })
+
+            if (result.data?.success) {
+                dispatch(closeModal())
+            }
+        } else if (actionType === "reject") {
+            const result = await rejectProof({ id, comment: values.comment })
+
+            if (result.data?.success) {
+                dispatch(closeModal())
+            }
         }
     }
 
@@ -109,23 +133,56 @@ const ViewProof = (props: IModal) => {
                     </div>
                 </div>
 
-                {status === USER_ACTIVITY_STATUS.SUBMITTED && (
-                    <div className="mt-3 flex w-full justify-end gap-4 border-t p-3">
-                        <Button
-                            onClick={handleApprove}
-                            loading={approveIsLoading}
-                            className={`bg-green-500 !text-white transition duration-100 hover:!border-green-600 hover:!bg-green-600 hover:font-medium`}
+                {status === USER_ACTIVITY_STATUS.SUBMITTED ? (
+                    <Form
+                        form={form}
+                        onFinish={onFinish}
+                        requiredMark={false}
+                        layout="vertical"
+                        className="mt-2 flex w-full flex-col items-center"
+                    >
+                        <Form.Item
+                            name="comment"
+                            className="w-full"
+                            label={<span className="font-medium">Comment:</span>}
+                            rules={[{ required: isCommentRequired, message: "Please provide a comment for rejection" }]}
                         >
-                            Approve
-                        </Button>
-                        <Button
-                            onClick={handleReject}
-                            loading={rejectIsLoading}
-                            className={`bg-red-500 !text-white transition duration-100 hover:!border-red-600 hover:!bg-red-600 hover:font-medium`}
-                        >
-                            Reject
-                        </Button>
-                    </div>
+                            <TextArea
+                                rows={4}
+                                placeholder={
+                                    isCommentRequired
+                                        ? "Please provide the reason for rejection"
+                                        : "Optional comment for approval"
+                                }
+                                className="w-full"
+                            />
+                        </Form.Item>
+                        <div className="flex w-full justify-end gap-4 border-t p-3">
+                            <Button
+                                onClick={handleApprove}
+                                loading={approveIsLoading}
+                                className={`bg-green-500 !text-white transition duration-100 hover:!border-green-600 hover:!bg-green-600 hover:font-medium`}
+                            >
+                                Approve
+                            </Button>
+                            <Button
+                                onClick={handleReject}
+                                loading={rejectIsLoading}
+                                className={`bg-red-500 !text-white transition duration-100 hover:!border-red-600 hover:!bg-red-600 hover:font-medium`}
+                            >
+                                Reject
+                            </Button>
+                        </div>
+                    </Form>
+                ) : (
+                    comments.length > 0 && (
+                        <div className="mt-3 border-t pt-2">
+                            <span className="block pb-1 font-medium">Comments:</span>
+                            {comments.map((comment) => (
+                                <Comment key={comment.id} {...comment} />
+                            ))}
+                        </div>
+                    )
                 )}
             </div>
             <StudentDetail

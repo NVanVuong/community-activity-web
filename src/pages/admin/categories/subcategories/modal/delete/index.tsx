@@ -2,7 +2,7 @@ import Title from "@/components/molecules/title-modal"
 import useServerMessage from "@/hooks/useServerMessage"
 import { IModal, closeModal } from "@/redux/features/modal/modal.slice"
 import { useAppDispatch } from "@/redux/hook"
-import { useDeleteSubcategoryMutation } from "@/redux/services/categories/categories.slice"
+import { useDeleteSubcategoryMutation } from "@/redux/services/categories/categories.service"
 import { Button, Spin } from "antd"
 
 const DeleteSubcategory = (props: IModal) => {
@@ -10,7 +10,7 @@ const DeleteSubcategory = (props: IModal) => {
     const { id, name } = subcategory
 
     const [deleteSubcategory, { data, error, isLoading }] = useDeleteSubcategoryMutation()
-    
+
     const dispatch = useAppDispatch()
 
     const onDelete = async () => {
@@ -36,7 +36,8 @@ const DeleteSubcategory = (props: IModal) => {
                     <Button
                         onClick={onDelete}
                         loading={isLoading}
-                        className={`border-none bg-red-500 !text-white transition duration-100 hover:!bg-red-600 hover:bg-opacity-70`}                    >
+                        className={`border-none bg-red-500 !text-white transition duration-100 hover:!bg-red-600 hover:bg-opacity-70`}
+                    >
                         Delete{" "}
                     </Button>
                 </div>

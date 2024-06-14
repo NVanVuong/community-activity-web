@@ -9,6 +9,8 @@ export enum SITE_MAP {
     ACTIVITIES = "activities",
     PROOFS = "proofs",
     CATEGORIES = "categories",
+    ORGANIZATIONS = "organizations",
+    ROLES = "roles",
     MY_FAVORITES = "my-favorites",
     MY_ACTIVITIES = "my-activities",
     MY_PROOFS = "my-proofs",

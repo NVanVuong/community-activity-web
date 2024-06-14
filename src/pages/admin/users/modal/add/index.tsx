@@ -1,4 +1,4 @@
-import { Button, Form, Input, Select, Spin, Upload } from "antd"
+import { Button, Form, Input, Select, Spin } from "antd"
 import useServerMessage from "@/hooks/useServerMessage"
 import Title from "@/components/molecules/title-modal"
 import { useCreateUserMutation } from "@/redux/services/users/users.service"
@@ -63,10 +63,12 @@ const AddUser = (props: IModal) => {
                             <Select.Option value={ROLE.FACULTY}>Faculty</Select.Option>
                             <Select.Option value={ROLE.CLASS}>Class</Select.Option>
                             <Select.Option value={ROLE.USER}>User</Select.Option>
+                            <Select.Option value={ROLE.YOUTH_UNION}>Youth Union</Select.Option>
+                            <Select.Option value={ROLE.UNION_BRANCH}>Union Branch</Select.Option>
                         </Select>
                     </Form.Item>
 
-                    {role === ROLE.FACULTY ? (
+                    {role === ROLE.FACULTY && (
                         <Form.Item
                             className="w-full"
                             name="facultyId"
@@ -92,33 +94,36 @@ const AddUser = (props: IModal) => {
                                 ))}
                             </Select>
                         </Form.Item>
-                    ) : (
-                        <Form.Item
-                            className="w-full"
-                            name="clazzId"
-                            label={<span className="font-semibold">Class</span>}
-                            rules={[{ required: true }]}
-                        >
-                            <Select
-                                placeholder="Class"
-                                className="h-10"
-                                loading={isLoadingClasses}
-                                showSearch
-                                optionFilterProp="children"
-                                filterOption={(input: any, option: any) =>
-                                    option &&
-                                    option.children &&
-                                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                                }
-                            >
-                                {classes?.map((clazz) => (
-                                    <Select.Option value={clazz.id} key={clazz.id}>
-                                        {clazz.name}
-                                    </Select.Option>
-                                ))}
-                            </Select>
-                        </Form.Item>
                     )}
+
+                    {role === ROLE.CLASS ||
+                        (role === ROLE.USER && (
+                            <Form.Item
+                                className="w-full"
+                                name="clazzId"
+                                label={<span className="font-semibold">Class</span>}
+                                rules={[{ required: true }]}
+                            >
+                                <Select
+                                    placeholder="Class"
+                                    className="h-10"
+                                    loading={isLoadingClasses}
+                                    showSearch
+                                    optionFilterProp="children"
+                                    filterOption={(input: any, option: any) =>
+                                        option &&
+                                        option.children &&
+                                        option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                    }
+                                >
+                                    {classes?.map((clazz) => (
+                                        <Select.Option value={clazz.id} key={clazz.id}>
+                                            {clazz.name}
+                                        </Select.Option>
+                                    ))}
+                                </Select>
+                            </Form.Item>
+                        ))}
 
                     {role === ROLE.USER && (
                         <>
@@ -144,6 +149,27 @@ const AddUser = (props: IModal) => {
                                 label={<span className="font-semibold">Score (if already have)</span>}
                             >
                                 <Input placeholder="Score" className="h-10" />
+                            </Form.Item>
+                        </>
+                    )}
+
+                    {role !== ROLE.USER && role !== ROLE.FACULTY && role !== ROLE.CLASS && (
+                        <>
+                            <Form.Item
+                                className="w-full"
+                                name="username"
+                                label={<span className="font-semibold">Username</span>}
+                                rules={[{ required: true, message: "Name is required!" }]}
+                            >
+                                <Input placeholder="Username" className="h-10" />
+                            </Form.Item>
+                            <Form.Item
+                                className="w-full"
+                                name="name"
+                                label={<span className="font-semibold">Name</span>}
+                                rules={[{ required: true, message: "Name is required!" }]}
+                            >
+                                <Input placeholder="Name" className="h-10" />
                             </Form.Item>
                         </>
                     )}

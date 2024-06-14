@@ -61,7 +61,7 @@ const SubcategoriesList = ({ subcategories }: { subcategories: ISubcategory[] })
         }
     ]
 
-    return <Table dataSource={subcategories} columns={columns} rowKey="id" pagination={false} />
+    return <Table dataSource={subcategories} columns={columns} rowKey={(record) => record.id} pagination={false} />
 }
 
 export default SubcategoriesList

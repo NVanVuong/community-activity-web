@@ -39,7 +39,7 @@ const TableManageActivites = () => {
             render: (name: string) => <span className="text-sm font-medium">{name}</span>
         },
         {
-            title: <span className="font-bold">Organizer</span>,
+            title: <span className="font-bold">Organization</span>,
             key: "organizer",
             dataIndex: "organizer",
             width: "25%",
@@ -52,7 +52,7 @@ const TableManageActivites = () => {
             filters: [
                 { text: "Registration Open", value: ACTIVITY_STATUS.REGISTRATION_OPEN },
                 { text: "Registration Expired", value: ACTIVITY_STATUS.REGISTRATION_EXPIRED },
-                { text: "Expired", value: ACTIVITY_STATUS.EXPIRED }
+                { text: "Completed", value: ACTIVITY_STATUS.COMPLETED }
             ],
             onFilter: (value, record) => record.status === value,
             render: (record: IActivity) => (

@@ -6,7 +6,7 @@ import { useUpdateActivityMutation } from "@/redux/services/activities/activitie
 import { ImgCropUpload } from "@/components/molecules/imgcrop-upload"
 import { createActivityFormData, normFile } from "@/utils/helpers"
 import { useEffect, useState } from "react"
-import { useGetCategoriesQuery } from "@/redux/services/categories/categories.slice"
+import { useGetCategoriesQuery } from "@/redux/services/categories/categories.service"
 import { AiOutlineUpload } from "react-icons/ai"
 import Editor from "@/components/organisms/editor"
 import { ISubcategory } from "@/interfaces/categories.interface"

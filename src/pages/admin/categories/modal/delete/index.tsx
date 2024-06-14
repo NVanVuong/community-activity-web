@@ -2,7 +2,7 @@ import Title from "@/components/molecules/title-modal"
 import useServerMessage from "@/hooks/useServerMessage"
 import { IModal, closeModal } from "@/redux/features/modal/modal.slice"
 import { useAppDispatch } from "@/redux/hook"
-import { useDeleteCategoryMutation } from "@/redux/services/categories/categories.slice"
+import { useDeleteCategoryMutation } from "@/redux/services/categories/categories.service"
 import { Button, Spin } from "antd"
 
 const DeleteCategory = (props: IModal) => {
@@ -32,7 +32,8 @@ const DeleteCategory = (props: IModal) => {
                     <Button
                         onClick={onDelete}
                         loading={isLoading}
-                        className={`border-none bg-red-500 !text-white transition duration-100 hover:!bg-red-600 hover:bg-opacity-70`}                    >
+                        className={`border-none bg-red-500 !text-white transition duration-100 hover:!bg-red-600 hover:bg-opacity-70`}
+                    >
                         Delete{" "}
                     </Button>
                 </div>

@@ -7,6 +7,7 @@ import { IActivity } from "@/interfaces/activity.interface"
 import Title from "@/components/molecules/title-modal"
 import ActivityDetail from "@/pages/home/activities/card-detail"
 import { useState } from "react"
+import Comment from "@/components/molecules/comment"
 
 const ViewProof = (props: IModal) => {
     const title = props.title
@@ -14,7 +15,7 @@ const ViewProof = (props: IModal) => {
     const myActivity = myProof.userActivity as IUserActivity
     const activity = myActivity.activity as IActivity
 
-    const { id, description, image, name } = myProof
+    const { id, description, image, name, comments } = myProof
 
     const status = myActivity.status
 
@@ -61,6 +62,15 @@ const ViewProof = (props: IModal) => {
                         {activity?.name}
                     </span>
                 </p>
+
+                {comments.length > 0 && (
+                    <div className="border-t pt-2">
+                        <span className="block pb-1 font-medium">Comments:</span>
+                        {comments.map((comment) => (
+                            <Comment key={comment.id} {...comment} />
+                        ))}
+                    </div>
+                )}
             </div>
 
             <ActivityDetail

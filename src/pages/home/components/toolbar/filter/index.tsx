@@ -1,7 +1,7 @@
 import { ICategory } from "@/interfaces/categories.interface"
 import { resetFilters, setFilters } from "@/redux/features/filter/filter.slice"
 import { useAppDispatch, useAppSelector } from "@/redux/hook"
-import { useGetCategoriesQuery } from "@/redux/services/categories/categories.slice"
+import { useGetCategoriesQuery } from "@/redux/services/categories/categories.service"
 import { ACTIVITY_STATUS, ACTIVITY_STATUS_TEXT } from "@/utils/enums/status.enum"
 import { Button, Checkbox, DatePicker, Popover, Select, Slider } from "antd"
 import dayjs from "dayjs"

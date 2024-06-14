@@ -1,4 +1,4 @@
-import { IUser } from "@/interfaces/user.interface"
+import { IRole, IUser } from "@/interfaces/user.interface"
 import { ColumnsType } from "antd/es/table"
 import { AlignType } from "rc-table/lib/interface"
 import { FaEllipsis } from "react-icons/fa6"
@@ -101,17 +101,20 @@ const TableManageUsers = () => {
             dataIndex: "role",
             filters: [
                 { text: "Admin", value: ROLE.ADMIN },
-                { text: "Class", value: ROLE.CLASS },
+                { text: "Youth Union", value: ROLE.YOUTH_UNION },
                 { text: "Faculty", value: ROLE.FACULTY },
+                { text: "Union Branch", value: ROLE.UNION_BRANCH },
+                { text: "Class", value: ROLE.CLASS },
                 { text: "User", value: ROLE.USER }
             ],
-            onFilter: (value, record) => record.role === value,
-            render: (role: string) => (
+            defaultFilteredValue: [ROLE.USER],
+            onFilter: (value, record) => record.role.name === value,
+            render: (role: IRole) => (
                 <span
-                    style={{ backgroundColor: ROLE_COLORS[role as RoleType] }}
+                    style={{ backgroundColor: ROLE_COLORS[role.name as RoleType] }}
                     className={`rounded-2xl px-2 py-1.5 text-center text-xs font-semibold uppercase text-white`}
                 >
-                    {role}
+                    {role.name}
                 </span>
             )
         },

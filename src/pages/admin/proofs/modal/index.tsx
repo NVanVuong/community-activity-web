@@ -10,12 +10,6 @@ const ModalProofs = () => {
 
     const getModalContent = () => {
         switch (type) {
-            // case MODAL.ADD.ACTIVITY:
-            //     return <AddActivity title="Create Activity" />
-            // case MODAL.UPDATE.ACTIVITY:
-            //     return <UpdateActivity title="Update Activity" data={activity} />
-            // case MODAL.DELETE.ACTIVITY:
-            //     return <DeleteActivity title="Delete Activity" data={activity} />
             case MODAL.VIEW.PROOF:
                 return <ViewProof title="Proof Detail" data={proof} />
             default:

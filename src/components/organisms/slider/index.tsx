@@ -1,15 +1,16 @@
 import type { MenuProps } from "antd"
 import { Menu } from "antd"
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { FaRegUser } from "react-icons/fa"
 import { BiCategory } from "react-icons/bi"
-import { MdLogout, MdOutlineClass, MdOutlineRoomPreferences } from "react-icons/md"
+import { MdLogout, MdOutlineClass, MdOutlineHomeWork, MdOutlineRoomPreferences } from "react-icons/md"
 import { LuActivitySquare, LuFileCheck2 } from "react-icons/lu"
 import { SITE_MAP } from "@/utils/enums/path.enum"
 import Logo from "@/components/molecules/logo"
 import Button from "@/components/atoms/button"
 import ToggleExpand from "@/components/atoms/expand"
+import { LiaUserShieldSolid } from "react-icons/lia"
 
 type MenuItem = Required<MenuProps>["items"][number]
 
@@ -33,6 +34,11 @@ const Slider = () => {
     const [isExpanding, setIsExpanding] = useState(false)
     const navigate = useNavigate()
 
+    const location = useLocation()
+    console.log(location.pathname)
+
+    console.log(location.pathname.split("/")[2])
+
     let items: MenuProps["items"] = [
         { type: "divider" },
 
@@ -42,6 +48,8 @@ const Slider = () => {
         getItem(`${isExpanding ? "Activities" : ""}`, "activities", <LuActivitySquare className="h-5 w-5" />),
         getItem(`${isExpanding ? "Proofs" : ""}`, "proofs", <LuFileCheck2 className="h-5 w-5" />),
         getItem(`${isExpanding ? "Categories" : ""}`, "categories", <BiCategory className="h-5 w-5" />),
+        getItem(`${isExpanding ? "Organization" : ""}`, "organizations", <MdOutlineHomeWork className="h-5 w-5" />),
+        getItem(`${isExpanding ? "Roles" : ""}`, "roles", <LiaUserShieldSolid className="h-5 w-5" />),
 
         { type: "divider" }
     ]
@@ -66,6 +74,12 @@ const Slider = () => {
             case "proofs":
                 navigate(SITE_MAP.PROOFS)
                 break
+            case "organizations":
+                navigate(SITE_MAP.ORGANIZATIONS)
+                break
+            case "roles":
+                navigate(SITE_MAP.ROLES)
+                break
             default:
                 break
         }
@@ -83,7 +97,7 @@ const Slider = () => {
 
             <Menu
                 onClick={onClick}
-                defaultSelectedKeys={["users"]}
+                defaultSelectedKeys={[location.pathname.split("/")[2]]}
                 mode="inline"
                 items={items}
                 style={{ borderInlineEnd: "none" }}

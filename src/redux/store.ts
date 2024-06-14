@@ -7,9 +7,11 @@ import { authApi } from "./services/auth/auth.service"
 import { userApi } from "./services/users/users.service"
 import { classApi } from "./services/classes/classes.service"
 import { facultyApi } from "./services/faculties/faculties.service"
-import { categoryApi } from "./services/categories/categories.slice"
+import { categoryApi } from "./services/categories/categories.service"
 import { activityApi } from "./services/activities/activities.service"
 import { proofApi } from "./services/proofs/proofs.service"
+import { organizationApi } from "./services/organizations/organizations.service"
+import { roleApi } from "./services/roles/roles.service"
 
 const rootReducer = combineReducers({
     auth: authSlice,
@@ -22,7 +24,9 @@ const rootReducer = combineReducers({
     [facultyApi.reducerPath]: facultyApi.reducer,
     [categoryApi.reducerPath]: categoryApi.reducer,
     [activityApi.reducerPath]: activityApi.reducer,
-    [proofApi.reducerPath]: proofApi.reducer
+    [proofApi.reducerPath]: proofApi.reducer,
+    [organizationApi.reducerPath]: organizationApi.reducer,
+    [roleApi.reducerPath]: roleApi.reducer
 })
 
 export const store = configureStore({
@@ -35,7 +39,9 @@ export const store = configureStore({
             facultyApi.middleware,
             categoryApi.middleware,
             activityApi.middleware,
-            proofApi.middleware
+            proofApi.middleware,
+            organizationApi.middleware,
+            roleApi.middleware
         )
 })
 

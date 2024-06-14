@@ -2,6 +2,7 @@ import { ROLE } from "@/utils/enums/role.enum"
 import { IBaseQuery, IBaseRespone } from "./base.interface"
 import { IClazz } from "./clazz.interface"
 import { IFaculty } from "./faculty.interface"
+import { ISubcategory } from "./categories.interface"
 
 export interface IUser {
     id: string
@@ -12,7 +13,7 @@ export interface IUser {
     phoneNumber: string
     score: number
     studentId: string
-    role: string
+    role: IRole
     clazz: IClazz
     faculty: IFaculty
 }
@@ -73,4 +74,22 @@ export interface IUpdateMyInfoRequest extends FormData {}
 export interface IUpdatePassword {
     oldPassword: string
     newPassword: string
+}
+
+export interface IRole {
+    id: string
+    name: ROLE
+    description: string
+    subcategories: ISubcategory[]
+}
+
+export interface IRoleResponse extends IBaseRespone {
+    data: IRole[]
+}
+
+export interface IRoleQuery extends IBaseQuery {}
+
+export interface IRoleCreate {
+    name: ROLE
+    description: string
 }

@@ -8,7 +8,7 @@ import { AiOutlineUpload } from "react-icons/ai"
 import { createProofExternalData, normFile } from "@/utils/helpers"
 import { ImgCropUpload } from "@/components/molecules/imgcrop-upload"
 import { useSubmitProofExternalMutation } from "@/redux/services/proofs/proofs.service"
-import { useGetCategoriesQuery } from "@/redux/services/categories/categories.slice"
+import { useGetCategoriesQuery } from "@/redux/services/categories/categories.service"
 import { ISubcategory } from "@/interfaces/categories.interface"
 
 const SubmitProofExternal = (props: IModal) => {

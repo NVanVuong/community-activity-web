@@ -93,7 +93,10 @@ const TableManageProofs = () => {
             filters: [
                 { text: "Submitted", value: USER_ACTIVITY_STATUS.SUBMITTED },
                 { text: "Approved", value: USER_ACTIVITY_STATUS.APPROVED },
-                { text: "Canceled", value: USER_ACTIVITY_STATUS.CANCELED }
+                {
+                    text: "Rejected",
+                    value: USER_ACTIVITY_STATUS.REJECTED
+                }
             ],
             onFilter: (value, record) => record.userActivity.status === value,
             render: (record: IProof) => (

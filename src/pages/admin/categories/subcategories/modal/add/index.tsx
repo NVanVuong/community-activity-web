@@ -2,7 +2,7 @@ import { Button, Form, Input, InputNumber, Spin } from "antd"
 import useServerMessage from "@/hooks/useServerMessage"
 import Title from "@/components/molecules/title-modal"
 import { IModal } from "@/redux/features/modal/modal.slice"
-import { useCreateSubcategoryMutation } from "@/redux/services/categories/categories.slice"
+import { useCreateSubcategoryMutation } from "@/redux/services/categories/categories.service"
 
 const AddSubategory = (props: IModal) => {
     const { title, data: category } = props

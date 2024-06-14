@@ -47,7 +47,7 @@ const StudentDetail: React.FC<StudentDrawerProps> = ({
                             {score}
                         </Descriptions.Item>
                         <Descriptions.Item label="Role" contentStyle={{ textTransform: "capitalize" }}>
-                            {role}
+                            {role?.name}
                         </Descriptions.Item>
                         <Descriptions.Item label="Class">{className}</Descriptions.Item>
                         <Descriptions.Item label="Faculty">{facultyName}</Descriptions.Item>

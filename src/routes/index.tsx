@@ -18,6 +18,8 @@ const FacultiesPage = lazy(() => import("../pages/admin/faculties"))
 const CategoriesPage = lazy(() => import("../pages/admin/categories"))
 const ActivitiesPage = lazy(() => import("../pages/admin/activities"))
 const ProofsPage = lazy(() => import("../pages/admin/proofs"))
+const OrganizationsPage = lazy(() => import("../pages/admin/organizations"))
+const RolesPage = lazy(() => import("../pages/admin/roles"))
 
 const ForbiddenPage = lazy(() => import("../pages/error/forbidden"))
 const NotFoundPage = lazy(() => import("../pages/error/not-found"))
@@ -44,6 +46,8 @@ const MainRoute = () => {
                             <Route path={SITE_MAP.CATEGORIES} element={<CategoriesPage />} />
                             <Route path={SITE_MAP.ACTIVITIES} element={<ActivitiesPage />} />
                             <Route path={SITE_MAP.PROOFS} element={<ProofsPage />} />
+                            <Route path={SITE_MAP.ORGANIZATIONS} element={<OrganizationsPage />} />
+                            <Route path={SITE_MAP.ROLES} element={<RolesPage />} />
                         </Route>
                     </Route>
 

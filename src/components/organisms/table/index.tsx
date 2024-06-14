@@ -3,8 +3,8 @@ import { TablePaginationConfig } from "antd/lib/table"
 
 interface ITable<T> {
     dataSource: T[]
-    columns: any
-    rowKey: (record: T) => string
+    columns: any[]
+    rowKey: (record: T) => any
     pagination?: false | TablePaginationConfig
     pageSize?: number
     total?: number

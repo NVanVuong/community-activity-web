@@ -30,7 +30,7 @@ const StudentsList = ({ classes }: { classes: IClazz[] }) => {
         }
     ]
 
-    return <Table dataSource={classes} columns={columns} rowKey="id" pagination={false} />
+    return <Table dataSource={classes} columns={columns} rowKey={(record) => record.id} pagination={false} />
 }
 
 export default StudentsList

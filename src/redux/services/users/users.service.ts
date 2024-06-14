@@ -9,7 +9,6 @@ import {
     IUsersResponse
 } from "@/interfaces/user.interface"
 import { createApiWithAuth } from "../auth/auth.service"
-import { create } from "lodash"
 
 const creatApiUserWithAuth = createApiWithAuth("userApi", ["Users"])
 export const userApi = creatApiUserWithAuth.injectEndpoints({

@@ -17,6 +17,8 @@ interface TableToolbarProps {
         | PAGE.PROOF
         | PAGE.MY_ACTIVITIES
         | PAGE.MY_PROOFS
+        | PAGE.ORGANIZATION
+        | PAGE.ROLE
 }
 
 const TableToolbar: React.FC<TableToolbarProps> = ({ type }) => {

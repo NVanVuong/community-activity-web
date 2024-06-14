@@ -1,9 +1,9 @@
 import { IBaseRespone } from "./base.interface"
-import { IUser } from "./user.interface"
+import { IUserJwt } from "./user.interface"
 
 export interface IAuth {
     accessToken: string | null
-    user: IUser | null
+    user: IUserJwt | null
 }
 
 export interface IAuthSignIn {

@@ -1,4 +1,5 @@
 import {
+    IConfirmProofRequest,
     IProofCreateRequest,
     IProofId,
     IProofQuery,
@@ -41,20 +42,24 @@ export const proofApi = creatApiUserWithAuth.injectEndpoints({
             },
             invalidatesTags: ["proofs"]
         }),
-        aprroveProof: builder.mutation<IProofResponse, string>({
-            query(id) {
+        aprroveProof: builder.mutation<IProofResponse, IConfirmProofRequest>({
+            query({ id, comment }) {
                 return {
                     url: `/proofs/${id}/approve`,
-                    method: "POST"
+                    method: "POST",
+                    body: { comment }
                 }
             },
             invalidatesTags: ["proofs"]
         }),
-        rejectProof: builder.mutation<IProofResponse, string>({
-            query(id) {
+        rejectProof: builder.mutation<IProofResponse, IConfirmProofRequest>({
+            query({ id, comment }) {
+                console.log("body", comment)
+
                 return {
                     url: `/proofs/${id}/reject`,
-                    method: "POST"
+                    method: "POST",
+                    body: { comment }
                 }
             },
             invalidatesTags: ["proofs"]

@@ -3,9 +3,9 @@ import { openModal } from "@/redux/features/modal/modal.slice"
 import { useAppDispatch } from "@/redux/hook"
 import { MODAL } from "@/utils/constants/modal"
 import { ACTIVITY_STATUS, ACTIVITY_STATUS_COLOR, ACTIVITY_STATUS_TEXT } from "@/utils/enums/status.enum"
-import { styleOrEmpty } from "@/utils/helpers"
+import { formatDate, styleOrEmpty } from "@/utils/helpers"
 import { Button, Tag } from "antd"
-import { FaRegHeart } from "react-icons/fa"
+import { FaRegCalendarAlt, FaRegHeart } from "react-icons/fa"
 import { FaPeopleGroup } from "react-icons/fa6"
 import { MdLocationOn, MdSportsScore } from "react-icons/md"
 
@@ -45,6 +45,11 @@ function Card(props: ICardProps) {
                         <FaPeopleGroup className="h-5 w-5" />
                         {props.participants}/{props.maxParticipants === -1 ? "Unlimited" : props.maxParticipants}
                     </p>
+                    <p className="mt-2 flex items-center gap-1">
+                        <FaRegCalendarAlt className="h-5 w-5" />
+                        {formatDate(props.startDate)}
+                    </p>
+
                     <p className="mt-2 flex items-center gap-1">
                         <MdLocationOn className="h-5 w-5" />
                         {props.address}

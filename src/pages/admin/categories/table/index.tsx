@@ -5,7 +5,7 @@ import { Dropdown, Space, Spin } from "antd"
 import Table from "@/components/organisms/table"
 import { useAppSelector } from "@/redux/hook"
 import { IFaculty } from "@/interfaces/faculty.interface"
-import { useGetCategoriesQuery } from "@/redux/services/categories/categories.slice"
+import { useGetCategoriesQuery } from "@/redux/services/categories/categories.service"
 import { ICategory } from "@/interfaces/categories.interface"
 import { useMenuActions } from "../hooks/useMenuActions"
 

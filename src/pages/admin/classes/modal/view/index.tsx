@@ -11,7 +11,7 @@ const ViewStudent = (props: IModal) => {
         <div className="w-176">
             <Spin spinning={isLoading}>
                 <Title>{props.title}</Title>
-                {isLoading ? null : <StudentsList students={data!.data} />}
+                {isLoading ? null : <StudentsList students={data!.data.users} />}
             </Spin>
         </div>
     )

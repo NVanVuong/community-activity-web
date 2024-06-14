@@ -16,7 +16,6 @@ export const useMenuActions = () => {
                 label: (
                     <div
                         onClick={() => {
-                            console.log(record)
                             dispacth(openModal({ type: MODAL.VIEW.ACTIVITY, data: record }))
                         }}
                         className="flex justify-between font-medium text-gray-500"
@@ -53,11 +52,16 @@ export const useMenuActions = () => {
                     <div
                         onClick={() => dispacth(openModal({ type: MODAL.SUBMIT.PROOF, data: record }))}
                         className="flex justify-between font-medium text-cyan-500"
+                        style={{
+                            pointerEvents: new Date(record.activity.startDate) > new Date() ? "none" : "auto",
+                            opacity: new Date(record.activity.startDate) > new Date() ? 0.2 : 1
+                        }}
                     >
                         Submit <LuFileCheck2 className="ml-2.5 h-5 w-5" />
                     </div>
                 ),
-                key: "delete"
+                key: "delete",
+                disabled: new Date(record.activity.startDate) > new Date()
             }
         ] as MenuProps["items"]
 }

@@ -2,7 +2,7 @@ import { IBaseQuery, IBaseRespone } from "./base.interface"
 import { IFaculty } from "./faculty.interface"
 
 export interface IClazz {
-    id: number
+    id: string
     name: string
     faculty: IFaculty
     academicYear: IAcademicYear

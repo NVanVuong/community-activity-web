@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { jwtDecode } from "jwt-decode"
 import { IAuth } from "../../../interfaces/auth.interface"
-import { IUser } from "../../../interfaces/user.interface"
+import { IUserJwt } from "../../../interfaces/user.interface"
 
 const token = localStorage.getItem("jwt") || ""
-let decodedToken: IUser | null = null
+let decodedToken: IUserJwt | null = null
 
 if (token) {
     try {
-        decodedToken = jwtDecode(token) as IUser
+        decodedToken = jwtDecode(token) as IUserJwt
     } catch (error) {
         console.error("Error decoding token:", error)
     }
@@ -27,6 +27,8 @@ const authSlice = createSlice({
             const { accessToken } = action.payload
             state.accessToken = accessToken
             state.user = accessToken ? jwtDecode(accessToken) : null
+            console.log("user", state.user)
+
             localStorage.setItem("jwt", accessToken || "")
         },
 

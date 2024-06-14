@@ -2,7 +2,7 @@ import { Button, Form, Input, Spin } from "antd"
 import useServerMessage from "@/hooks/useServerMessage"
 import Title from "@/components/molecules/title-modal"
 import { IModal } from "@/redux/features/modal/modal.slice"
-import { useCreateCategoryMutation } from "@/redux/services/categories/categories.slice"
+import { useCreateCategoryMutation } from "@/redux/services/categories/categories.service"
 
 const AddCategory = (props: IModal) => {
     const { title } = props

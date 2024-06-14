@@ -60,7 +60,7 @@ const StudentsList = ({ students }: { students: IUser[] }) => {
 
     return (
         <>
-            <Table dataSource={students} columns={columns} rowKey="id" pagination={false} />
+            <Table dataSource={students} columns={columns} rowKey={(record) => record.id} pagination={false} />
             <StudentDetail
                 title="Student Details"
                 placement="right"
