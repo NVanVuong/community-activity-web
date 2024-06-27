@@ -9,19 +9,23 @@ import { useEffect, useState } from "react"
 import { AiOutlineUpload } from "react-icons/ai"
 import { createActivityFormData, normFile } from "@/utils/helpers"
 import { ImgCropUpload } from "@/components/molecules/imgcrop-upload"
+import { ISubcategory } from "@/interfaces/categories.interface"
+import { useGetOrganizationsQuery } from "@/redux/services/organizations/organizations.service"
 
 const AddActivity = (props: IModal) => {
     const { title } = props
+
     const [createActivity, { data, error, isLoading }] = useCreateActivityMutation()
     const { data: categories, isLoading: isLoadingCategories } = useGetCategoriesQuery({ keyword: "" })
-    const [subcategories, setSubcategories] = useState(categories?.data[0]?.subcategories || [])
-    const [description, setDescription] = useState("")
+    const { data: organizationsData, isLoading: isLoadingOrganizations } = useGetOrganizationsQuery({ keyword: "" })
+    const organizations = organizationsData?.data.filter((organization) => organization.name !== "Khoa")
 
-    useEffect(() => {
-        if (categories?.data && categories.data.length > 0) {
-            setSubcategories(categories.data[0].subcategories)
-        }
-    }, [categories?.data])
+    const [description, setDescription] = useState("")
+    const [subcategories, setSubcategories] = useState(categories?.data[0]?.subcategories || [])
+    const [subcategorySelected, setSubcategorySelected] = useState({} as ISubcategory)
+
+    const [organizationSelected, setOrganizationSelected] = useState<string | undefined>(undefined)
+    const [categorySelected, setCategorySelected] = useState<string | undefined>(undefined)
 
     useServerMessage({ data: data!, error: error })
 
@@ -37,11 +41,47 @@ const AddActivity = (props: IModal) => {
         await createActivity(formData)
     }
 
+    const handleOrganizationChange = async (value: any) => {
+        const selectedOrganization = organizations?.find((organization) => organization.name === value)
+
+        if (!categorySelected) {
+            setSubcategories(selectedOrganization?.subcategories || [])
+        } else {
+            const selectedCategory = categories?.data.find((category) => category.id === categorySelected)
+            if (selectedCategory) {
+                const filteredSubcategories = selectedCategory.subcategories.filter((subcategory) =>
+                    selectedOrganization?.subcategories.some((orgSub) => orgSub.id === subcategory.id)
+                )
+                setSubcategories(filteredSubcategories)
+            }
+        }
+
+        setOrganizationSelected(selectedOrganization?.name)
+    }
+
     const handleCategoryChange = async (value: any) => {
         const selectedCategory = categories?.data.find((category) => category.id === value)
         if (selectedCategory) {
-            setSubcategories(selectedCategory.subcategories)
+            setCategorySelected(selectedCategory.id)
+            if (!organizationSelected) {
+                setSubcategories(selectedCategory.subcategories)
+            } else {
+                const selectedOrganization = organizations?.find(
+                    (organization) => organization.name === organizationSelected
+                )
+                if (selectedOrganization) {
+                    const filteredSubcategories = selectedCategory.subcategories.filter((subcategory) =>
+                        selectedOrganization.subcategories.some((orgSub) => orgSub.id === subcategory.id)
+                    )
+                    setSubcategories(filteredSubcategories)
+                }
+            }
         }
+    }
+
+    const handleSubcategoryChange = (value: any) => {
+        const selectedSubcategory = subcategories.find((subcategory) => subcategory.id === value)
+        if (selectedSubcategory) setSubcategorySelected(selectedSubcategory)
     }
 
     return (
@@ -51,14 +91,32 @@ const AddActivity = (props: IModal) => {
                 <Form
                     onFinish={onFinish}
                     requiredMark={false}
-                    initialValues={{
-                        categoryId: categories?.data[0]?.id
-                    }}
                     layout="vertical"
                     className="flex w-full flex-col items-center"
                 >
                     <div className="flex w-full gap-8">
                         <div className="w-1/2">
+                            <Form.Item
+                                label={<span className="font-semibold">Organization</span>}
+                                className="w-full"
+                                name="organization"
+                            >
+                                <Select
+                                    placement="bottomRight"
+                                    placeholder="Organization"
+                                    className="h-10"
+                                    loading={isLoadingOrganizations}
+                                    onChange={handleOrganizationChange}
+                                    value={organizationSelected}
+                                >
+                                    {organizations?.map((organization) => (
+                                        <Select.Option value={organization.name} key={organization.id}>
+                                            {organization.name}
+                                        </Select.Option>
+                                    ))}
+                                </Select>
+                            </Form.Item>
+
                             <Form.Item
                                 label={<span className="font-semibold">Category</span>}
                                 className="w-full"
@@ -70,7 +128,7 @@ const AddActivity = (props: IModal) => {
                                     className="h-10"
                                     loading={isLoadingCategories}
                                     onChange={handleCategoryChange}
-                                    defaultValue={categories?.data[0]?.id}
+                                    value={categorySelected}
                                 >
                                     {categories?.data.map((category) => (
                                         <Select.Option value={category.id} key={category.id}>
@@ -86,7 +144,7 @@ const AddActivity = (props: IModal) => {
                                 name="subcategoryId"
                                 rules={[{ required: true }]}
                             >
-                                <Select placeholder="Subcategory" className="h-10">
+                                <Select placeholder="Subcategory" onChange={handleSubcategoryChange} className="h-10">
                                     {subcategories &&
                                         subcategories.map((subcategory) => (
                                             <Select.Option value={subcategory.id} key={subcategory.id}>
@@ -98,11 +156,19 @@ const AddActivity = (props: IModal) => {
 
                             <Form.Item
                                 className="w-full"
-                                name="name"
-                                label={<span className="font-semibold">Name</span>}
-                                rules={[{ required: true, message: "Please input name!" }]}
+                                name="score"
+                                label={
+                                    <span className="font-semibold">
+                                        {subcategorySelected &&
+                                        subcategorySelected.minScore !== undefined &&
+                                        subcategorySelected.maxScore !== undefined
+                                            ? `Score (score of this subcategory is between ${subcategorySelected.minScore} and ${subcategorySelected.maxScore})`
+                                            : "Score"}
+                                    </span>
+                                }
+                                rules={[{ required: true, message: "Please input score!" }]}
                             >
-                                <Input placeholder="Name" className="h-10" />
+                                <Input placeholder="Score" className="h-10" />
                             </Form.Item>
 
                             <Form.Item
@@ -134,13 +200,15 @@ const AddActivity = (props: IModal) => {
                             <div className="flex w-full gap-4">
                                 <Form.Item
                                     className="w-full"
-                                    name="score"
-                                    label={<span className="font-semibold">Score</span>}
-                                    rules={[{ required: true, message: "Please input score!" }]}
+                                    name="name"
+                                    label={<span className="font-semibold">Name</span>}
+                                    rules={[{ required: true, message: "Please input name!" }]}
                                 >
-                                    <Input placeholder="Score" className="h-10" />
+                                    <Input placeholder="Name" className="h-10" />
                                 </Form.Item>
+                            </div>
 
+                            <div className="flex w-full gap-4">
                                 <Form.Item
                                     className="w-full"
                                     name="maxParticipants"
@@ -149,18 +217,6 @@ const AddActivity = (props: IModal) => {
                                 >
                                     <Input placeholder="Max Participants" className="h-10" />
                                 </Form.Item>
-                            </div>
-
-                            <div className="flex w-full gap-4">
-                                <Form.Item
-                                    className="w-full"
-                                    name="organizer"
-                                    label={<span className="font-semibold">Organizer</span>}
-                                    rules={[{ required: true, message: "Please input organizer!" }]}
-                                >
-                                    <Input placeholder="Organizer" className="h-10" />
-                                </Form.Item>
-
                                 <Form.Item
                                     className="w-full"
                                     name="address"

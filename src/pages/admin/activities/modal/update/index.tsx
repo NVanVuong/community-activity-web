@@ -69,7 +69,7 @@ const UpdateActivity = (props: IModal) => {
             name: activity.name,
             score: activity.score,
             maxParticipants: activity.maxParticipants,
-            organizer: activity.organizer,
+            organization: activity.organization,
             address: activity.address,
             startDate: moment(activity.startDate),
             endDate: moment(activity.endDate),
@@ -185,11 +185,11 @@ const UpdateActivity = (props: IModal) => {
                             <div className="flex w-full gap-4">
                                 <Form.Item
                                     className="w-full"
-                                    name="organizer"
-                                    label={<span className="font-semibold">Organizer</span>}
-                                    rules={[{ required: true, message: "Please input organizer!" }]}
+                                    name="organization"
+                                    label={<span className="font-semibold">Organization</span>}
+                                    rules={[{ required: true, message: "Please input organization!" }]}
                                 >
-                                    <Input placeholder="Organizer" className="h-10" />
+                                    <Input placeholder="Organization" className="h-10" />
                                 </Form.Item>
 
                                 <Form.Item

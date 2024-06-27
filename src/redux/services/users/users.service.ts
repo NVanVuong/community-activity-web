@@ -5,6 +5,7 @@ import {
     IUpdateMyInfoResponse,
     IUpdatePassword,
     IUserByClassQuery,
+    IUserByClassRespone,
     IUserQuery,
     IUsersResponse
 } from "@/interfaces/user.interface"
@@ -18,7 +19,7 @@ export const userApi = creatApiUserWithAuth.injectEndpoints({
                 `/users?keyword=${keyword}&classId=${classId}&facultyId=${facultyId}&yearId=${yearId}&page=${page}&limit=${limit}`,
             providesTags: ["Users"]
         }),
-        getUsersByClass: builder.query<IUsersResponse, IUserByClassQuery>({
+        getUsersByClass: builder.query<IUserByClassRespone, IUserByClassQuery>({
             query: ({ classId }) => `/users/class/${classId}`,
             providesTags: ["Users"]
         }),

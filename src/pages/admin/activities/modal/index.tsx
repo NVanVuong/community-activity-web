@@ -6,6 +6,7 @@ import AddActivity from "./add"
 import { IActivity } from "@/interfaces/activity.interface"
 import DeleteActivity from "./delete"
 import UpdateActivity from "./update"
+import ViewParticipants from "./participants"
 
 const ModalActivities = () => {
     const type = useAppSelector((state) => state.modal.type)
@@ -21,6 +22,8 @@ const ModalActivities = () => {
                 return <DeleteActivity title="Delete Activity" data={activity} />
             case MODAL.VIEW.ACTIVITY:
                 return <ViewActivity title="Activity Overview" data={activity} />
+            case MODAL.VIEW.PARTICIPANT:
+                return <ViewParticipants title="List Participants" data={activity} />
             default:
                 return null
         }

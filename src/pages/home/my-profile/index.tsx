@@ -62,7 +62,7 @@ const MyProfile = () => {
 
     useServerMessage({ data: data!, error: error })
 
-    const isAdmin = role === ROLE.ADMIN
+    const isUser = role === ROLE.USER
 
     return (
         <>
@@ -91,7 +91,7 @@ const MyProfile = () => {
 
                         <Spin spinning={isLoadingMyInfo}>
                             <>
-                                {!isAdmin ? (
+                                {isUser ? (
                                     <>
                                         <div className="w-full px-4 text-center">
                                             <div className="text-center">
@@ -117,11 +117,11 @@ const MyProfile = () => {
                                                 </div>
                                                 <div>
                                                     <span className="font-bold">Class: </span>
-                                                    {myInfo?.user?.clazz.name}
+                                                    {myInfo?.user?.clazz?.name}
                                                 </div>
                                                 <div>
                                                     <span className="font-bold">Faculty: </span>
-                                                    {myInfo?.user?.clazz.faculty.name}
+                                                    {myInfo?.user?.clazz?.faculty?.name}
                                                 </div>
                                             </div>
                                         </div>{" "}

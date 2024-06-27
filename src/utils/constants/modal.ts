@@ -38,7 +38,8 @@ export const MODAL = {
         ACTIVITY: "VIEW_ACTIVITY",
         PROOF: "VIEW_PROOF",
         ORGANIZATION: "VIEW_ORGANIZATION",
-        ROLE: "VIEW_ROLE"
+        ROLE: "VIEW_ROLE",
+        PARTICIPANT: "VIEW_PARTICIPANT"
     },
     REGISTER: {
         ACTIVITY: "REGISTER_ACTIVITY"

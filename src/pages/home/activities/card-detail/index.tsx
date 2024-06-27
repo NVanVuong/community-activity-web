@@ -42,7 +42,7 @@ const ActivityDetail: React.FC<ActivityDrawerProps> = ({
         isExternal,
         maxParticipants,
         name,
-        organizer,
+        organization,
         participants,
         score,
         startDate,
@@ -68,7 +68,7 @@ const ActivityDetail: React.FC<ActivityDrawerProps> = ({
                         <div className="absolute inset-0 bg-black opacity-25" />
                         <div className="absolute bottom-0 left-0 p-4 text-white">
                             <h1 className="text-3xl font-semibold">{name}</h1>
-                            <p className="mt-2 text-lg">{organizer}</p>
+                            <p className="mt-2 text-lg">{organization}</p>
                         </div>
                     </div>
                     <div className="p-6">
@@ -124,7 +124,7 @@ const ActivityDetail: React.FC<ActivityDrawerProps> = ({
                                     <h3 className="font-semibold text-gray-800">Participants</h3>
                                     {!isExternal ? (
                                         <>
-                                            <p>Max: {maxParticipants}</p>
+                                            <p>{maxParticipants === -1 ? "Unlimitted" : `Max: ${maxParticipants}`}</p>
                                             <p>Registered: {participants}</p>
                                         </>
                                     ) : (

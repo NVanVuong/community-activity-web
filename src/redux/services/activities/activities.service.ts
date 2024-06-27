@@ -18,6 +18,18 @@ export const activityApi = creatApiUserWithAuth.injectEndpoints({
             },
             providesTags: ["activities"]
         }),
+        getActivity: builder.query<IActivityResponse, IActivityId>({
+            query(id) {
+                return `/activities/${id}`
+            },
+            providesTags: ["activities"]
+        }),
+        getParticipants: builder.query<IUserActivityResponse, IActivityId>({
+            query(id) {
+                return `/activities/participants/${id}`
+            },
+            providesTags: ["activities"]
+        }),
         getMyActivities: builder.query<IUserActivityResponse, IUserActivityQuery>({
             query({ keyword = "" }) {
                 return `/my-activities?keyword=${keyword}`
@@ -86,6 +98,8 @@ export const activityApi = creatApiUserWithAuth.injectEndpoints({
 
 export const {
     useGetActivitiesQuery,
+    useGetActivityQuery,
+    useGetParticipantsQuery,
     useGetMyActivitiesQuery,
     useCreateActivityMutation,
     useUpdateActivityMutation,

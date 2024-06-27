@@ -12,7 +12,7 @@ export interface IActivity {
     maxParticipants: number
     participants: number
     address: string
-    organizer: string
+    organization: string
     startDate: Date
     endDate: Date
     startRegistration: Date

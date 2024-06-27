@@ -13,6 +13,10 @@ export interface IOrganizationResponse extends IBaseRespone {
     data: IOrganization[]
 }
 
+export interface IOrganizationSubcategoriesResponse extends IBaseRespone {
+    data: IOrganization[]
+}
+
 export interface IOrganizationCreate {
     name: string
 }

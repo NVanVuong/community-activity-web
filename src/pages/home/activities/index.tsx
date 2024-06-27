@@ -21,6 +21,7 @@ const itemRender: PaginationProps["itemRender"] = (_, type, originalElement) => 
 
 function ListActivities() {
     const keyword = useAppSelector((state) => state.search.keyword)
+    const organization = useAppSelector((state) => state.search.organization)
     const filter = useAppSelector((state) => state.filter) as {
         status: string[]
         startDate: Date[]
@@ -61,10 +62,14 @@ function ListActivities() {
                 }
             }
 
+            if (organization && activity.organization.includes(organization) === false) {
+                return false
+            }
+
             return true
         })
         setFilteredActivities(filtered)
-    }, [activities, filter])
+    }, [activities, filter, organization])
 
     const [activitySelected, setActivitySelected] = useState<IActivity>({} as IActivity)
     const [isOpen, setIsOpen] = useState(false)

@@ -39,9 +39,9 @@ const Slider = () => {
 
         { type: "divider" },
 
-        getItem("My Favorites", "my-favorites", <PiListHeartBold className="h-5 w-9 pl-4" />),
         getItem("My Activities", "my-activities", <LuActivitySquare className="h-5 w-9 pl-4" />),
-        getItem("My Proofs", "my-proofs", <LuFileCheck2 className="h-5 w-9 pl-4" />)
+        getItem("My Proofs", "my-proofs", <LuFileCheck2 className="h-5 w-9 pl-4" />),
+        getItem("My Score", "my-scores", <PiListHeartBold className="h-5 w-9 pl-4" />)
     ]
 
     const onClick: MenuProps["onClick"] = (e) => {
@@ -50,8 +50,8 @@ const Slider = () => {
                 navigate(SITE_MAP.INDEX)
                 break
 
-            case "my-favorites":
-                navigate(SITE_MAP.MY_FAVORITES)
+            case "my-scores":
+                navigate(SITE_MAP.MY_SCORES)
                 break
 
             case "my-activities":

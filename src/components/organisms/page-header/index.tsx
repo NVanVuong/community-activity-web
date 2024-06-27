@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { styleOrEmpty } from "@/utils/helpers"
 import UserMenu from "@/components/molecules/user-menu"
+import { useAppSelector } from "@/redux/hook"
 
 interface IPageHeader {
     title: string
@@ -11,6 +12,7 @@ const PageHeader = (props: IPageHeader) => {
     const navigate = useNavigate()
 
     const isSubTitlePresent = !!props.subTitle
+    const isExternal = useAppSelector((state) => state.search.isExternal)
 
     return (
         <div className="mb-3 flex w-full items-center justify-between">
@@ -20,7 +22,7 @@ const PageHeader = (props: IPageHeader) => {
                     className={`cursor-pointer text-2xl font-medium text-secondary 
                     ${styleOrEmpty(isSubTitlePresent, "cursor-pointer")}`}
                 >
-                    {props.title}
+                    {props.title} {isExternal && " (External)"}
                 </h1>
                 {props.subTitle && (
                     <>

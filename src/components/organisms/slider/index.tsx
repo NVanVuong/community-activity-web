@@ -11,6 +11,8 @@ import Logo from "@/components/molecules/logo"
 import Button from "@/components/atoms/button"
 import ToggleExpand from "@/components/atoms/expand"
 import { LiaUserShieldSolid } from "react-icons/lia"
+import { ROLE } from "@/utils/enums/role.enum"
+import useAuth from "@/hooks/useAuth"
 
 type MenuItem = Required<MenuProps>["items"][number]
 
@@ -30,27 +32,83 @@ function getItem(
     } as MenuItem
 }
 
+const roleMenuMap: Record<ROLE, string[]> = {
+    [ROLE.ADMIN]: ["users", "classes", "faculties", "activities", "proofs", "categories", "organizations", "roles"],
+    [ROLE.YOUTH_UNION]: [
+        "users",
+        "classes",
+        "faculties",
+        "activities",
+        "proofs",
+        "categories",
+        "organizations",
+        "roles"
+    ],
+    [ROLE.FACULTY]: ["users", "classes", "activities", "proofs"],
+    [ROLE.UNION_BRANCH]: ["users", "classes", "activities", "proofs"],
+    [ROLE.CLASS]: ["users", "activities", "proofs"],
+    [ROLE.USER]: []
+}
+
 const Slider = () => {
     const [isExpanding, setIsExpanding] = useState(false)
     const navigate = useNavigate()
 
     const location = useLocation()
-    console.log(location.pathname)
 
-    console.log(location.pathname.split("/")[2])
+    const { role } = useAuth()
+    const allowedMenuItems = roleMenuMap[role] || []
 
-    let items: MenuProps["items"] = [
+    const items: MenuProps["items"] = [
         { type: "divider" },
-
-        getItem(`${isExpanding ? "Users" : ""}`, "users", <FaRegUser className="h-5 w-5" />),
-        getItem(`${isExpanding ? "Classes" : ""}`, "classes", <MdOutlineClass className="h-5 w-5" />),
-        getItem(`${isExpanding ? "Faculties" : ""}`, "faculties", <MdOutlineRoomPreferences className="h-5 w-5" />),
-        getItem(`${isExpanding ? "Activities" : ""}`, "activities", <LuActivitySquare className="h-5 w-5" />),
-        getItem(`${isExpanding ? "Proofs" : ""}`, "proofs", <LuFileCheck2 className="h-5 w-5" />),
-        getItem(`${isExpanding ? "Categories" : ""}`, "categories", <BiCategory className="h-5 w-5" />),
-        getItem(`${isExpanding ? "Organization" : ""}`, "organizations", <MdOutlineHomeWork className="h-5 w-5" />),
-        getItem(`${isExpanding ? "Roles" : ""}`, "roles", <LiaUserShieldSolid className="h-5 w-5" />),
-
+        ...allowedMenuItems
+            .map((key) => {
+                switch (key) {
+                    case "users":
+                        return getItem(`${isExpanding ? "Users" : ""}`, "users", <FaRegUser className="h-5 w-5" />)
+                    case "classes":
+                        return getItem(
+                            `${isExpanding ? "Classes" : ""}`,
+                            "classes",
+                            <MdOutlineClass className="h-5 w-5" />
+                        )
+                    case "faculties":
+                        return getItem(
+                            `${isExpanding ? "Faculties" : ""}`,
+                            "faculties",
+                            <MdOutlineRoomPreferences className="h-5 w-5" />
+                        )
+                    case "activities":
+                        return getItem(
+                            `${isExpanding ? "Activities" : ""}`,
+                            "activities",
+                            <LuActivitySquare className="h-5 w-5" />
+                        )
+                    case "proofs":
+                        return getItem(`${isExpanding ? "Proofs" : ""}`, "proofs", <LuFileCheck2 className="h-5 w-5" />)
+                    case "categories":
+                        return getItem(
+                            `${isExpanding ? "Categories" : ""}`,
+                            "categories",
+                            <BiCategory className="h-5 w-5" />
+                        )
+                    case "organizations":
+                        return getItem(
+                            `${isExpanding ? "Organization" : ""}`,
+                            "organizations",
+                            <MdOutlineHomeWork className="h-5 w-5" />
+                        )
+                    case "roles":
+                        return getItem(
+                            `${isExpanding ? "Roles" : ""}`,
+                            "roles",
+                            <LiaUserShieldSolid className="h-5 w-5" />
+                        )
+                    default:
+                        return null
+                }
+            })
+            .filter(Boolean),
         { type: "divider" }
     ]
 

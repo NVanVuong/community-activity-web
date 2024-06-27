@@ -1,4 +1,8 @@
-import { IOrganizationQuery, IOrganizationResponse } from "@/interfaces/organization"
+import {
+    IOrganizationQuery,
+    IOrganizationResponse,
+    IOrganizationSubcategoriesResponse
+} from "@/interfaces/organization"
 import { createApiWithAuth } from "../auth/auth.service"
 
 const creatApiUserWithAuth = createApiWithAuth("organizationApi", ["organizations"])
@@ -41,6 +45,12 @@ export const organizationApi = creatApiUserWithAuth.injectEndpoints({
                 }
             },
             invalidatesTags: ["organizations"]
+        }),
+        getOrganizationSubcategories: builder.query<IOrganizationSubcategoriesResponse, string>({
+            query(id) {
+                return `/organizations/${id}/subcategories`
+            },
+            providesTags: ["organizations"]
         })
     })
 })
@@ -49,5 +59,6 @@ export const {
     useGetOrganizationsQuery,
     useCreateOrganizationMutation,
     useDeleteOrganizationMutation,
-    useAddSubcategoriesToOrganizationMutation
+    useAddSubcategoriesToOrganizationMutation,
+    useGetOrganizationSubcategoriesQuery
 } = organizationApi

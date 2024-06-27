@@ -6,6 +6,7 @@ export interface ISearch {
     classId: string
     facultyId: string
     yearId: string
+    organization: string
 }
 
 const initialState: ISearch = {
@@ -13,7 +14,8 @@ const initialState: ISearch = {
     isExternal: false,
     classId: "",
     facultyId: "",
-    yearId: ""
+    yearId: "",
+    organization: ""
 }
 
 const searchSlice = createSlice({
@@ -35,6 +37,9 @@ const searchSlice = createSlice({
         setYearId: (state, action) => {
             state.yearId = action.payload
         },
+        setOrganization: (state, action) => {
+            state.organization = action.payload
+        },
         resetKeyword: (state) => {
             state.keyword = initialState.keyword
         },
@@ -49,6 +54,9 @@ const searchSlice = createSlice({
         },
         resetYearId: (state) => {
             state.yearId = initialState.yearId
+        },
+        resetOrganization: (state) => {
+            state.organization = initialState.organization
         }
     }
 })
@@ -63,7 +71,9 @@ export const {
     setFacultyId,
     resetFacultyId,
     setYearId,
-    resetYearId
+    resetYearId,
+    setOrganization,
+    resetOrganization
 } = searchSlice.actions
 
 export default searchSlice.reducer

@@ -17,6 +17,9 @@ function Home() {
             case ROLE.USER:
                 navigate(SITE_MAP.INDEX)
                 break
+            case ROLE.FACULTY:
+                navigate(SITE_MAP.FACULTY)
+                break
             default:
                 navigate(SITE_MAP.SIGNIN)
                 break

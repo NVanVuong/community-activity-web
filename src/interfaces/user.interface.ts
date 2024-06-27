@@ -56,6 +56,10 @@ export interface IUsersResponse extends IBaseRespone {
     }
 }
 
+export interface IUserByClassRespone extends IBaseRespone {
+    data: IUser[]
+}
+
 export interface IMyInfoRespone extends IBaseRespone {
     data: {
         user: IUser
@@ -85,6 +89,10 @@ export interface IRole {
 
 export interface IRoleResponse extends IBaseRespone {
     data: IRole[]
+}
+
+export interface IRoleSubcategoryResponse extends IBaseRespone {
+    data: ISubcategory[]
 }
 
 export interface IRoleQuery extends IBaseQuery {}

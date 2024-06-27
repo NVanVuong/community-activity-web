@@ -27,7 +27,7 @@ const ViewActivity = (props: IModal) => {
         isExternal,
         maxParticipants,
         name,
-        organizer,
+        organization,
         participants,
         score,
         startDate,
@@ -52,7 +52,7 @@ const ViewActivity = (props: IModal) => {
                     <div className="absolute inset-0 bg-black opacity-25" />
                     <div className="absolute bottom-0 left-0 p-4 text-white">
                         <h1 className="text-3xl font-semibold">{name}</h1>
-                        <p className="mt-2 text-lg">{organizer}</p>
+                        <p className="mt-2 text-lg">{organization}</p>
                     </div>
                 </div>
                 <div className="p-6">

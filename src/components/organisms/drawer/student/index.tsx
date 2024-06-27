@@ -23,7 +23,7 @@ const StudentDetail: React.FC<StudentDrawerProps> = ({
     const { id, email, name, phoneNumber, role, avatar, score, clazz } = student || {}
 
     const className = clazz?.name
-    const facultyName = clazz?.faculty.name
+    const facultyName = clazz?.faculty?.name
 
     return (
         <Drawer title={title} placement={placement} width={width} onClose={onClose} open={open}>

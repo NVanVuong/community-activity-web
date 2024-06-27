@@ -11,6 +11,8 @@ const MyProfilePage = lazy(() => import("../pages/home/my-profile"))
 const ListActivitiesPage = lazy(() => import("../pages/home/activities"))
 const MyActivitiesPage = lazy(() => import("../pages/home/my-activities"))
 const MyProofsPage = lazy(() => import("../pages/home/my-proofs"))
+const MyScoresPage = lazy(() => import("../pages/home/my-scores"))
+
 const AdminPage = lazy(() => import("../pages/admin"))
 const UsersPage = lazy(() => import("../pages/admin/users"))
 const ClassesPage = lazy(() => import("../pages/admin/classes"))
@@ -20,6 +22,12 @@ const ActivitiesPage = lazy(() => import("../pages/admin/activities"))
 const ProofsPage = lazy(() => import("../pages/admin/proofs"))
 const OrganizationsPage = lazy(() => import("../pages/admin/organizations"))
 const RolesPage = lazy(() => import("../pages/admin/roles"))
+
+const FacultyPage = lazy(() => import("../pages/faculty"))
+const UsersPageOfFaculty = lazy(() => import("../pages/faculty/users"))
+const ClassesPageOfFaculty = lazy(() => import("../pages/faculty/classes"))
+const ActivitiesPageOfFaculty = lazy(() => import("../pages/faculty/activities"))
+const ProofsPageOfFaculty = lazy(() => import("../pages/faculty/proofs"))
 
 const ForbiddenPage = lazy(() => import("../pages/error/forbidden"))
 const NotFoundPage = lazy(() => import("../pages/error/not-found"))
@@ -34,6 +42,7 @@ const MainRoute = () => {
                             <Route index element={<ListActivitiesPage />} />
                             <Route path={SITE_MAP.MY_ACTIVITIES} element={<MyActivitiesPage />} />
                             <Route path={SITE_MAP.MY_PROOFS} element={<MyProofsPage />} />
+                            <Route path={SITE_MAP.MY_SCORES} element={<MyScoresPage />} />
                         </Route>
                     </Route>
 
@@ -48,6 +57,16 @@ const MainRoute = () => {
                             <Route path={SITE_MAP.PROOFS} element={<ProofsPage />} />
                             <Route path={SITE_MAP.ORGANIZATIONS} element={<OrganizationsPage />} />
                             <Route path={SITE_MAP.ROLES} element={<RolesPage />} />
+                        </Route>
+                    </Route>
+
+                    <Route element={<ProtectedRoute requiredRole={ROLE.FACULTY} />}>
+                        <Route path={SITE_MAP.FACULTY} element={<FacultyPage />}>
+                            <Route index element={<Navigate to={SITE_MAP.USERS} replace />} />
+                            <Route path={SITE_MAP.USERS} element={<UsersPageOfFaculty />} />
+                            <Route path={SITE_MAP.CLASSES} element={<ClassesPageOfFaculty />} />
+                            <Route path={SITE_MAP.ACTIVITIES} element={<ActivitiesPageOfFaculty />} />
+                            <Route path={SITE_MAP.PROOFS} element={<ProofsPageOfFaculty />} />
                         </Route>
                     </Route>
 

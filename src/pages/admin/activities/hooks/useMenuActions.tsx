@@ -4,6 +4,7 @@ import { useAppDispatch } from "@/redux/hook"
 import { openModal } from "@/redux/features/modal/modal.slice"
 import { MenuProps } from "antd"
 import { MODAL } from "@/utils/constants/modal"
+import { GoPeople } from "react-icons/go"
 
 export const useMenuActions = () => {
     const dispacth = useAppDispatch()
@@ -20,6 +21,17 @@ export const useMenuActions = () => {
                     </div>
                 ),
                 key: "view"
+            },
+            {
+                label: (
+                    <div
+                        onClick={() => dispacth(openModal({ type: MODAL.VIEW.PARTICIPANT, data: record }))}
+                        className="flex justify-between font-medium text-green-500"
+                    >
+                        Participants <GoPeople className="ml-2.5 h-5 w-5" />
+                    </div>
+                ),
+                key: "participant"
             },
             {
                 label: (

@@ -1,4 +1,4 @@
-import { IRoleQuery, IRoleResponse } from "@/interfaces/user.interface"
+import { IRoleQuery, IRoleResponse, IRoleSubcategoryResponse } from "@/interfaces/user.interface"
 import { createApiWithAuth } from "../auth/auth.service"
 
 const creatApiUserWithAuth = createApiWithAuth("roleApi", ["roles"])
@@ -6,14 +6,14 @@ export const roleApi = creatApiUserWithAuth.injectEndpoints({
     endpoints: (builder) => ({
         getRoles: builder.query<IRoleResponse, IRoleQuery>({
             query({ keyword = "" }) {
-                return `/Roles?keyword=${keyword}`
+                return `/roles?keyword=${keyword}`
             },
             providesTags: ["roles"]
         }),
         createRole: builder.mutation<IRoleResponse, IRoleQuery>({
             query(body) {
                 return {
-                    url: "/Roles",
+                    url: "/roles",
                     method: "POST",
                     body
                 }
@@ -23,7 +23,7 @@ export const roleApi = creatApiUserWithAuth.injectEndpoints({
         deleteRole: builder.mutation<IRoleResponse, string>({
             query(id) {
                 return {
-                    url: `/Roles/${id}`,
+                    url: `/roles/${id}`,
                     method: "DELETE"
                 }
             },
@@ -32,15 +32,25 @@ export const roleApi = creatApiUserWithAuth.injectEndpoints({
         addSubcategoriesToRole: builder.mutation<IRoleResponse, { id: string; subcategoryIds: string[] }>({
             query({ id, subcategoryIds }) {
                 return {
-                    url: `/Roles/${id}/subcategories`,
+                    url: `/roles/${id}/subcategories`,
                     method: "POST",
                     body: { subcategoryIds }
                 }
             },
             invalidatesTags: ["roles"]
+        }),
+        getRoleSubcategories: builder.query<IRoleSubcategoryResponse, string>({
+            query(id) {
+                return `/roles/${id}/subcategories`
+            }
         })
     })
 })
 
-export const { useGetRolesQuery, useCreateRoleMutation, useDeleteRoleMutation, useAddSubcategoriesToRoleMutation } =
-    roleApi
+export const {
+    useGetRolesQuery,
+    useCreateRoleMutation,
+    useDeleteRoleMutation,
+    useAddSubcategoriesToRoleMutation,
+    useGetRoleSubcategoriesQuery
+} = roleApi

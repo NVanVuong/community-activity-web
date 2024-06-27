@@ -19,6 +19,7 @@ interface TableToolbarProps {
         | PAGE.MY_PROOFS
         | PAGE.ORGANIZATION
         | PAGE.ROLE
+        | PAGE.MY_SCORES
 }
 
 const TableToolbar: React.FC<TableToolbarProps> = ({ type }) => {
@@ -31,7 +32,7 @@ const TableToolbar: React.FC<TableToolbarProps> = ({ type }) => {
                 {(type === PAGE.PROOF || type === PAGE.ACTIVITY) && <IsExternal />}
                 {type === PAGE.USER && <UserQuery />}
             </div>
-            {type !== PAGE.PROOF && type !== PAGE.MY_ACTIVITIES && (
+            {type !== PAGE.PROOF && type !== PAGE.MY_ACTIVITIES && type !== PAGE.MY_SCORES && (
                 <button
                     onClick={() => dispatch(openModal({ type: MODAL.ADD[type] }))}
                     className="ml-4 flex items-center space-x-2 rounded-xl bg-primary px-3 py-2 text-white"

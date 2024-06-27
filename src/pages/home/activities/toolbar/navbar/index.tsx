@@ -1,31 +1,40 @@
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { Tabs } from "antd"
-import { TabsProps } from "antd/lib"
-
-const items: TabsProps["items"] = [
-    {
-        key: "all",
-        label: "All Activities"
-    },
-    {
-        key: "dhdn",
-        label: "Da Nang University"
-    },
-    {
-        key: "dhbk",
-        label: "DUT"
-    },
-    {
-        key: "faculty",
-        label: "Faculty"
-    }
-]
+import { useAppDispatch } from "@/redux/hook"
+import { setOrganization } from "@/redux/features/search/search.slice"
+import useAuth from "@/hooks/useAuth"
 
 const NavBar = () => {
-    const [activeKey, setActiveKey] = useState("all")
+    const { faculty } = useAuth()
+
+    const items = useMemo(
+        () => [
+            {
+                key: "",
+                label: "All activities"
+            },
+            {
+                key: "Đại học Đà Nẵng",
+                label: "Đại học Đà Nẵng"
+            },
+            {
+                key: "Đại học Bách Khoa",
+                label: "Đại học Bách Khoa"
+            },
+            {
+                key: faculty,
+                label: "Khoa"
+            }
+        ],
+        [faculty]
+    )
+
+    const [activeKey, setActiveKey] = useState("")
+    const dispatch = useAppDispatch()
 
     const handleTabChange = (key: string) => {
         setActiveKey(key)
+        dispatch(setOrganization(key))
     }
 
     return (

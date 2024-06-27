@@ -31,11 +31,11 @@ function Card(props: ICardProps) {
                     <Tag className="!m-0 h-fit capitalize" color={ACTIVITY_STATUS_COLOR[props.status]}>
                         {ACTIVITY_STATUS_TEXT[props.status]}
                     </Tag>
-                    <span className="ml-auto">
+                    {/* <span className="ml-auto">
                         <FaRegHeart className="h-5 w-5 text-primary transition duration-100 hover:scale-105" />
-                    </span>
+                    </span> */}
                 </div>
-                <p className="truncate text-xs text-gray-400">{props.organizer}</p>
+                <p className="truncate text-xs text-gray-400">{props.organization}</p>
                 <p className="truncate text-sm">{props.subcategory?.name}</p>
                 <div className="flex items-center gap-10 text-xs font-medium text-gray-600/80">
                     <p className="mt-2 flex items-center gap-1">

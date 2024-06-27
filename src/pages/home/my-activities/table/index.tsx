@@ -38,11 +38,11 @@ const TableManageMyActivites = () => {
             render: (activity: IActivity) => <span className="text-sm font-medium">{activity.name}</span>
         },
         {
-            title: <span className="font-bold">Organizer</span>,
-            key: "organizer",
+            title: <span className="font-bold">Organization</span>,
+            key: "organization",
             dataIndex: "activity",
             width: "25%",
-            render: (activity: IActivity) => <span className="text-sm font-medium">{activity.organizer}</span>
+            render: (activity: IActivity) => <span className="text-sm font-medium">{activity.organization}</span>
         },
         {
             title: <span className="font-bold">Status</span>,

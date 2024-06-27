@@ -1,8 +1,10 @@
+import useAuth from "@/hooks/useAuth"
 import { IAcademicYear, IClazz } from "@/interfaces/clazz.interface"
 import { IFaculty } from "@/interfaces/faculty.interface"
 import { setClassId, setFacultyId, setYearId } from "@/redux/features/search/search.slice"
 import { useAppDispatch } from "@/redux/hook"
 import { useGetClassesQuery } from "@/redux/services/classes/classes.service"
+import { ROLE } from "@/utils/enums/role.enum"
 import { Button, Select } from "antd"
 import { useEffect, useState } from "react"
 import { GrPowerReset } from "react-icons/gr"
@@ -15,6 +17,8 @@ function UserQuery() {
 
     const [faculties, setFaculties] = useState<IFaculty[]>([])
     const [academicYears, setAcademicYears] = useState<IAcademicYear[]>([])
+
+    const { role } = useAuth()
 
     useEffect(() => {
         if (classes) {
@@ -77,25 +81,27 @@ function UserQuery() {
             <Button onClick={handleClear} className="flex h-10 w-10 items-center justify-center" type="default">
                 <GrPowerReset className="h-4 w-4" />
             </Button>
-            <Select
-                onChange={handleFacultyChange}
-                placeholder="Faculty"
-                className="h-10 w-52"
-                value={selectedFacultyId}
-                loading={isLoading}
-                showSearch
-                optionFilterProp="children"
-                filterOption={(input: any, option: any) =>
-                    option && option.children && option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                }
-            >
-                <Select.Option value="">All</Select.Option>
-                {faculties.map((faculty) => (
-                    <Select.Option value={faculty.id} key={faculty.id}>
-                        {faculty.name}
-                    </Select.Option>
-                ))}
-            </Select>
+            {role !== ROLE.FACULTY && (
+                <Select
+                    onChange={handleFacultyChange}
+                    placeholder="Faculty"
+                    className="h-10 w-52"
+                    value={selectedFacultyId}
+                    loading={isLoading}
+                    showSearch
+                    optionFilterProp="children"
+                    filterOption={(input: any, option: any) =>
+                        option && option.children && option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                    }
+                >
+                    <Select.Option value="">All</Select.Option>
+                    {faculties.map((faculty) => (
+                        <Select.Option value={faculty.id} key={faculty.id}>
+                            {faculty.name}
+                        </Select.Option>
+                    ))}
+                </Select>
+            )}
             <Select
                 onChange={handleAcademicYearChange}
                 placeholder="Year"

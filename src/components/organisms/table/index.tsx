@@ -8,6 +8,7 @@ interface ITable<T> {
     pagination?: false | TablePaginationConfig
     pageSize?: number
     total?: number
+    footer?: any
 }
 
 const Table = <T extends object>({ pagination, pageSize, total, ...props }: ITable<T>) => {

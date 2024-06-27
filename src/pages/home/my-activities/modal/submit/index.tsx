@@ -1,4 +1,4 @@
-import { Button, Form, Input, Spin } from "antd"
+import { Button, Form, Spin } from "antd"
 import useServerMessage from "@/hooks/useServerMessage"
 import Title from "@/components/molecules/title-modal"
 import { IModal } from "@/redux/features/modal/modal.slice"
@@ -44,15 +44,6 @@ const SubmitProof = (props: IModal) => {
                     layout="vertical"
                     className="flex w-full flex-col items-center"
                 >
-                    <Form.Item
-                        className="w-full"
-                        name="name"
-                        label={<span className="font-semibold">Name</span>}
-                        rules={[{ required: true, message: "Please input name!" }]}
-                    >
-                        <Input placeholder="Name" className="h-10" />
-                    </Form.Item>
-
                     <Form.Item
                         className="w-full"
                         name="image"
