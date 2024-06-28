@@ -35,14 +35,13 @@ const TableManageProofs = () => {
             width: "4%",
             render: (_, __, index) => <span className=" text-sm font-semibold">{index + 1}</span>
         },
-
-        {
-            title: <span className="font-bold">Name</span>,
-            key: "name",
-            dataIndex: "name",
-            width: "20%",
-            render: (name: string) => <span className="text-sm font-medium">{name}</span>
-        },
+        // {
+        //     title: <span className="font-bold">Name</span>,
+        //     key: "name",
+        //     dataIndex: "name",
+        //     width: "20%",
+        //     render: (name: string) => <span className="text-sm font-medium">{name}</span>
+        // },
         {
             title: <span className="font-bold">Activity</span>,
             key: "activity",

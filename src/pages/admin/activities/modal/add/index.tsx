@@ -5,7 +5,7 @@ import { IModal } from "@/redux/features/modal/modal.slice"
 import { useCreateActivityMutation } from "@/redux/services/activities/activities.service"
 import Editor from "@/components/organisms/editor"
 import { useGetCategoriesQuery } from "@/redux/services/categories/categories.service"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { AiOutlineUpload } from "react-icons/ai"
 import { createActivityFormData, normFile } from "@/utils/helpers"
 import { ImgCropUpload } from "@/components/molecules/imgcrop-upload"
@@ -16,12 +16,13 @@ const AddActivity = (props: IModal) => {
     const { title } = props
 
     const [createActivity, { data, error, isLoading }] = useCreateActivityMutation()
-    const { data: categories, isLoading: isLoadingCategories } = useGetCategoriesQuery({ keyword: "" })
+    const { data: categoriesData, isLoading: isLoadingCategories } = useGetCategoriesQuery({ keyword: "" })
     const { data: organizationsData, isLoading: isLoadingOrganizations } = useGetOrganizationsQuery({ keyword: "" })
-    const organizations = organizationsData?.data.filter((organization) => organization.name !== "Khoa")
+    const categories = categoriesData?.data
+    const organizations = organizationsData?.data.filter((organization: any) => organization.name !== "Khoa")
 
     const [description, setDescription] = useState("")
-    const [subcategories, setSubcategories] = useState(categories?.data[0]?.subcategories || [])
+    const [subcategories, setSubcategories] = useState<any>([])
     const [subcategorySelected, setSubcategorySelected] = useState({} as ISubcategory)
 
     const [organizationSelected, setOrganizationSelected] = useState<string | undefined>(undefined)
@@ -44,43 +45,57 @@ const AddActivity = (props: IModal) => {
     const handleOrganizationChange = async (value: any) => {
         const selectedOrganization = organizations?.find((organization) => organization.name === value)
 
-        if (!categorySelected) {
-            setSubcategories(selectedOrganization?.subcategories || [])
-        } else {
-            const selectedCategory = categories?.data.find((category) => category.id === categorySelected)
+        if (!selectedOrganization) {
+            setSubcategories([])
+            return
+        }
+
+        if (categorySelected) {
+            const selectedCategory = categories?.find((category) => category.id === categorySelected)
             if (selectedCategory) {
                 const filteredSubcategories = selectedCategory.subcategories.filter((subcategory) =>
-                    selectedOrganization?.subcategories.some((orgSub) => orgSub.id === subcategory.id)
+                    selectedOrganization.subcategories.some((orgSub) => orgSub.id === subcategory.id)
                 )
                 setSubcategories(filteredSubcategories)
+            } else {
+                setSubcategories([])
             }
+        } else {
+            setSubcategories(selectedOrganization?.subcategories || [])
         }
 
         setOrganizationSelected(selectedOrganization?.name)
     }
 
     const handleCategoryChange = async (value: any) => {
-        const selectedCategory = categories?.data.find((category) => category.id === value)
-        if (selectedCategory) {
-            setCategorySelected(selectedCategory.id)
-            if (!organizationSelected) {
-                setSubcategories(selectedCategory.subcategories)
-            } else {
-                const selectedOrganization = organizations?.find(
-                    (organization) => organization.name === organizationSelected
-                )
-                if (selectedOrganization) {
-                    const filteredSubcategories = selectedCategory.subcategories.filter((subcategory) =>
-                        selectedOrganization.subcategories.some((orgSub) => orgSub.id === subcategory.id)
-                    )
-                    setSubcategories(filteredSubcategories)
-                }
-            }
+        const selectedCategory = categories?.find((category) => category.id === value)
+
+        if (!selectedCategory) {
+            setSubcategories([])
+            return
         }
+
+        if (organizationSelected) {
+            const selectedOrganization = organizations?.find(
+                (organization) => organization.name === organizationSelected
+            )
+            if (selectedOrganization) {
+                const filteredSubcategories = selectedCategory.subcategories.filter((subcategory) =>
+                    selectedOrganization.subcategories.some((orgSub) => orgSub.id === subcategory.id)
+                )
+                setSubcategories(filteredSubcategories)
+            } else {
+                setSubcategories([])
+            }
+        } else {
+            setSubcategories(selectedCategory.subcategories)
+        }
+
+        setCategorySelected(selectedCategory.id)
     }
 
     const handleSubcategoryChange = (value: any) => {
-        const selectedSubcategory = subcategories.find((subcategory) => subcategory.id === value)
+        const selectedSubcategory = subcategories.find((subcategory: any) => subcategory.id === value)
         if (selectedSubcategory) setSubcategorySelected(selectedSubcategory)
     }
 
@@ -130,7 +145,7 @@ const AddActivity = (props: IModal) => {
                                     onChange={handleCategoryChange}
                                     value={categorySelected}
                                 >
-                                    {categories?.data.map((category) => (
+                                    {categories?.map((category) => (
                                         <Select.Option value={category.id} key={category.id}>
                                             {category.name}
                                         </Select.Option>
@@ -146,7 +161,7 @@ const AddActivity = (props: IModal) => {
                             >
                                 <Select placeholder="Subcategory" onChange={handleSubcategoryChange} className="h-10">
                                     {subcategories &&
-                                        subcategories.map((subcategory) => (
+                                        subcategories.map((subcategory: any) => (
                                             <Select.Option value={subcategory.id} key={subcategory.id}>
                                                 {subcategory.name}
                                             </Select.Option>
@@ -179,7 +194,7 @@ const AddActivity = (props: IModal) => {
                                 getValueFromEvent={normFile}
                             >
                                 <ImgCropUpload
-                                    action="https://run.mocky.io/v3/b98772c8-2841-47e3-a05e-5e616fc11261"
+                                    action="https://run.mocky.io/v3/fae6fba5-8ef1-45f8-93c2-6304edaedd3f"
                                     headers={{
                                         authorization: "authorization-text",
                                         "Access-Control-Allow-Origin": "*"

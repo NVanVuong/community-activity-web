@@ -146,7 +146,7 @@ const AddActivity = (props: IModal) => {
                                 getValueFromEvent={normFile}
                             >
                                 <ImgCropUpload
-                                    action="https://run.mocky.io/v3/b98772c8-2841-47e3-a05e-5e616fc11261"
+                                    action="https://run.mocky.io/v3/fae6fba5-8ef1-45f8-93c2-6304edaedd3f"
                                     headers={{
                                         authorization: "authorization-text",
                                         "Access-Control-Allow-Origin": "*"

@@ -99,9 +99,9 @@ const ViewProof = (props: IModal) => {
                     <p>
                         <span className="inline-block font-medium">Proof ID:</span> {id}
                     </p>
-                    <p>
+                    {/* <p>
                         <span className="inline-block font-medium">Name:</span> {name}
-                    </p>
+                    </p> */}
                     <p>
                         <span className="inline-block font-medium">Score:</span> {activity.score}
                     </p>

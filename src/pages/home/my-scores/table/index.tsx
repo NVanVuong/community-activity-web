@@ -27,13 +27,6 @@ const TableManageMyScore = () => {
             render: (_, __, index) => <span className=" text-sm font-semibold">{index + 1}</span>
         },
         {
-            title: <span className="font-bold">Name</span>,
-            key: "name",
-            dataIndex: "name",
-            width: "20%",
-            render: (name: string) => <span className="text-sm font-medium">{name}</span>
-        },
-        {
             title: <span className="font-bold">Activity</span>,
             key: "activity",
             dataIndex: "userActivity",
@@ -42,7 +35,6 @@ const TableManageMyScore = () => {
                 <span className="text-sm font-medium">{userActivity.activity.name}</span>
             )
         },
-
         {
             title: <span className="font-bold">Score</span>,
             align: "center" as AlignType,
@@ -67,7 +59,7 @@ const TableManageMyScore = () => {
                     rowKey={(record) => record.id}
                     footer={() => (
                         <div className="mx-4 flex items-center justify-between font-bold">
-                            Total Score: <span className="mr-20 pr-1 text-green-500">{totalScore}</span>
+                            Total Score: <span className="mr-32 pr-2 text-green-500">{totalScore}</span>
                         </div>
                     )}
                 />
